@@ -43,6 +43,8 @@ const transporter = nodemailer.createTransport({
   debug: true
 });
 
+//pesho
+
 // Signup Route
 app.post("/signup", (req, res) => {
   const { firstName, lastName, email, password } = req.body;
