@@ -30,6 +30,8 @@ app.use(cors(corsOptions));
 
 let verificationCodes = {};
 
+//gosho
+
 // Create a transporter object using SMTP transport
 const transporter = nodemailer.createTransport({
   service: "gmail", // or any other email service
@@ -43,7 +45,7 @@ const transporter = nodemailer.createTransport({
   debug: true
 });
 
-//pesho
+//gosho
 
 // Signup Route
 app.post("/signup", (req, res) => {
