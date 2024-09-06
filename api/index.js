@@ -26,8 +26,6 @@ const corsOptions = {
   optionSuccessStatus: 200
 };
 
-//gosho
-
 app.use(cors(corsOptions));
 
 let verificationCodes = {};
