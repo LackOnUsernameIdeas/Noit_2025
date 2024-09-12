@@ -26,6 +26,9 @@ const Twostepcover: FC<TwostepcoverProps> = () => {
     six: useRef(null)
   };
 
+  const [resendCooldown, setResendCooldown] = useState(0);
+  const [isResending, setIsResending] = useState(false);
+
   const [alerts, setAlerts] = useState<
     { message: string; color: string; icon: JSX.Element }[]
   >([]);
@@ -43,6 +46,15 @@ const Twostepcover: FC<TwostepcoverProps> = () => {
       navigate(`${import.meta.env.BASE_URL}app/dashboards/crm/`);
     }
   }, [navigate]);
+
+  useEffect(() => {
+    if (resendCooldown > 0) {
+      const timer = setTimeout(() => {
+        setResendCooldown(resendCooldown - 1);
+      }, 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [resendCooldown]);
 
   const handleInputChange = useCallback(
     (currentId: any, nextId: any) => {
@@ -97,6 +109,48 @@ const Twostepcover: FC<TwostepcoverProps> = () => {
           `${import.meta.env.BASE_URL}authentication/signin/signincover`
         );
       }, 1000);
+    } catch (error: any) {
+      setAlerts([
+        {
+          message: error.message,
+          color: "danger",
+          icon: <i className="ri-error-warning-fill"></i>
+        }
+      ]);
+    }
+  };
+
+  const handleResendCode = async () => {
+    if (resendCooldown > 0) return; // Prevent resend if cooldown is active
+
+    console.log(email);
+    try {
+      const response = await fetch("http://localhost:5000/resend", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ email })
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(
+          errorData.error || "Failed to resend verification code."
+        );
+      }
+
+      const data = await response.json();
+      setAlerts([
+        {
+          message: data.message,
+          color: "success",
+          icon: <i className="ri-check-line"></i>
+        }
+      ]);
+
+      // Start cooldown
+      setResendCooldown(60); // 60 seconds cooldown
     } catch (error: any) {
       setAlerts([
         {
@@ -235,13 +289,21 @@ const Twostepcover: FC<TwostepcoverProps> = () => {
                         className="form-check-label"
                         htmlFor="defaultCheck1"
                       >
-                        Did not recieve a code ?
-                        <Link
-                          to={`${import.meta.env.BASE_URL}pages/email/mailapp/`}
-                          className="text-primary ms-2 inline-block"
+                        Did not receive a code?
+                        <button
+                          onClick={handleResendCode}
+                          className={`text-primary ms-2 inline-block ${
+                            resendCooldown > 0 ? "disabled" : ""
+                          }`}
+                          disabled={resendCooldown > 0}
                         >
                           Resend
-                        </Link>
+                        </button>
+                        {resendCooldown > 0 && (
+                          <span className="text-danger ms-2">
+                            Wait {resendCooldown}s
+                          </span>
+                        )}
                       </label>
                     </div>
                   </div>

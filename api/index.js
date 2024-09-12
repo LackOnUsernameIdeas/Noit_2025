@@ -54,7 +54,7 @@ app.post("/signup", (req, res) => {
       // Email already exists
       return res
         .status(400)
-        .json({ error: "Акаунт с този имейл вече съществува." });
+        .json({ error: "Профил с този имейл вече съществува." });
     }
 
     // Generate verification code
@@ -79,8 +79,37 @@ app.post("/signup", (req, res) => {
 
     transporter.sendMail(mailOptions, (error, info) => {
       if (error) return res.status(500).json({ error: "Failed to send email" });
-      res.json({ message: "Verification code sent to your email!" });
+      res.json({ message: "Кодът за потвърждение е изпратен на вашия имейл!" });
     });
+  });
+});
+
+// Resend Route
+app.post("/resend", (req, res) => {
+  const { email } = req.body;
+
+  // Generate verification code
+  const verificationCode = crypto.randomInt(100000, 999999).toString();
+
+  // Store the code temporarily
+  verificationCodes[email] = {
+    ...verificationCodes[email],
+    code: verificationCode,
+    expiresAt: Date.now() + 15 * 60 * 1000 // 15 minutes expiry
+  };
+
+  // Resend verification code via email
+  const mailOptions = {
+    from: process.env.EMAIL_USER,
+    to: email,
+    subject: "Email Verification Code",
+    html: `<p>Your verification code is <strong>${verificationCode}</strong>.</p>`
+  };
+
+  console.log(verificationCodes[email]);
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) return res.status(500).json({ error: "Failed to send email" });
+    res.json({ message: "Кодът за потвърждение е изпратен на вашия имейл!" });
   });
 });
 
@@ -144,7 +173,7 @@ app.post("/signin", (req, res) => {
     const token = jwt.sign({ id: user.id }, process.env.SECRET_KEY, {
       expiresIn: rememberMe ? "7d" : "1h"
     });
-    res.json({ message: "Sign in successful", token });
+    res.json({ message: "Успешно влизане!", token });
   });
 });
 
@@ -176,7 +205,10 @@ app.post("/password-reset-request", (req, res) => {
 
     transporter.sendMail(mailOptions, (error, info) => {
       if (error) return res.status(500).json({ error: "Failed to send email" });
-      res.json({ message: "Password reset link sent to your email!" });
+      res.json({
+        message:
+          "Заявката за актуализиране на паролата е изпратена на вашия имейл!"
+      });
     });
   });
 });
@@ -196,7 +228,7 @@ app.post("/password-reset", (req, res) => {
 
     db.updateUserPassword(userId, hashedPassword, (err, result) => {
       if (err) return res.status(400).json({ error: err.message });
-      res.json({ message: "Password reset successfully!" });
+      res.json({ message: "Успешно нулиране на паролата!" });
     });
   });
 });
