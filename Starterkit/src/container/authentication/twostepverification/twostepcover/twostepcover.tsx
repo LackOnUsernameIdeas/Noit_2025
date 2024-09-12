@@ -27,7 +27,6 @@ const Twostepcover: FC<TwostepcoverProps> = () => {
   };
 
   const [resendCooldown, setResendCooldown] = useState(0);
-  const [isResending, setIsResending] = useState(false);
 
   const [alerts, setAlerts] = useState<
     { message: string; color: string; icon: JSX.Element }[]
