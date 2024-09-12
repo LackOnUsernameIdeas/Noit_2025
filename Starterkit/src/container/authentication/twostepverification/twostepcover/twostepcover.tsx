@@ -200,10 +200,10 @@ const Twostepcover: FC<TwostepcoverProps> = () => {
                   </div>
                 ))}
                 <p className="font-semibold mb-2 text-xl">
-                  Verify Your Account
+                  Потвърдете профила си!
                 </p>
                 <p className="mb-4 text-[#8c9097] dark:text-white/50 opacity-[0.7] font-normal">
-                  Enter the 6 digit code sent to the registered email Id.
+                  Въведете 6-цифрения код, който изпратихме на Вашия имейл!
                 </p>
                 <div className="grid grid-cols-12 gap-4">
                   <div className="xl:col-span-12 col-span-12 mb-4">
@@ -278,30 +278,21 @@ const Twostepcover: FC<TwostepcoverProps> = () => {
                       </div>
                     </div>
                     <div className="form-check mt-2 mb-0 !ps-0">
-                      <input
-                        className="form-check-input"
-                        type="checkbox"
-                        defaultValue=""
-                        id="defaultCheck1"
-                      />
-                      <label
-                        className="form-check-label"
-                        htmlFor="defaultCheck1"
-                      >
-                        Did not receive a code?
-                        <button
-                          onClick={handleResendCode}
-                          className={`text-primary ms-2 inline-block ${
-                            resendCooldown > 0 ? "disabled" : ""
-                          }`}
-                          disabled={resendCooldown > 0}
-                        >
-                          Resend
-                        </button>
-                        {resendCooldown > 0 && (
+                      <label className="form-check-label" htmlFor="defaultCheck1">
+                        Не получихте код?
+                        {resendCooldown > 0 ? (
+                          // Показва съобщението с отброяването до следващия код
                           <span className="text-danger ms-2">
-                            Wait {resendCooldown}s
+                            Ще можете да получите нов код след {resendCooldown} сек.
                           </span>
+                        ) : (
+                          // Показва бутона отново, когато таймера стигне 0
+                          <button
+                            onClick={handleResendCode}
+                            className="text-primary ms-2 inline-block"
+                          >
+                            Изпращане отново
+                          </button>
                         )}
                       </label>
                     </div>
@@ -311,7 +302,7 @@ const Twostepcover: FC<TwostepcoverProps> = () => {
                       onClick={handleVerification}
                       className="ti-btn ti-btn-lg bg-primary text-white !font-medium dark:border-defaultborder/10"
                     >
-                      Verify
+                      Потвърди
                     </button>
                   </div>
                 </div>
@@ -320,7 +311,7 @@ const Twostepcover: FC<TwostepcoverProps> = () => {
                     <sup>
                       <i className="ri-asterisk"></i>
                     </sup>
-                    Don't share the verification code with anyone !
+                    Не споделяйте този код с никого!
                   </p>
                 </div>
               </div>

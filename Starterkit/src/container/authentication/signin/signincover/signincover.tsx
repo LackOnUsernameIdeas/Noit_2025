@@ -179,9 +179,9 @@ const Signincover: FC<SignincoverProps> = () => {
                     />
                   </Link>
                 </div>
-                <p className="h5 font-semibold mb-2">Sign In</p>
+                <p className="h5 font-semibold mb-2">Имате профил?</p>
                 <p className="mb-4 text-[#8c9097] dark:text-white/50 opacity-[0.7] font-normal">
-                  Hello Jhon !
+                  Попълнете Вашите имейл и парола, за да влезете в профила си!
                 </p>
                 {alerts.map((alert, idx) => (
                   <div
@@ -200,13 +200,13 @@ const Signincover: FC<SignincoverProps> = () => {
                         htmlFor="signin-email"
                         className="form-label text-default"
                       >
-                        Email
+                        Имейл
                       </label>
                       <input
                         type="email"
                         className="form-control form-control-lg w-full !rounded-md"
                         id="email"
-                        placeholder="email"
+                        placeholder="Въведете своя имейл"
                         value={formData.email}
                         onChange={handleInputChange}
                       />
@@ -216,14 +216,14 @@ const Signincover: FC<SignincoverProps> = () => {
                         htmlFor="signin-password"
                         className="form-label text-default block"
                       >
-                        Password
+                        Парола
                         <Link
                           to={`${
                             import.meta.env.BASE_URL
                           }authentication/resetpassword/resetrequest`}
                           className="ltr:float-right rtl:float-left text-danger"
                         >
-                          Forget password?
+                          Забравена парола
                         </Link>
                       </label>
                       <div className="input-group">
@@ -231,7 +231,7 @@ const Signincover: FC<SignincoverProps> = () => {
                           type={passwordShow ? "text" : "password"}
                           className="form-control form-control-lg !rounded-e-none"
                           id="password"
-                          placeholder="password"
+                          placeholder="Въведете своята парола"
                           value={formData.password}
                           onChange={handleInputChange}
                         />
@@ -262,7 +262,7 @@ const Signincover: FC<SignincoverProps> = () => {
                             className="form-check-label text-[#8c9097] dark:text-white/50 font-normal"
                             htmlFor="rememberMe"
                           >
-                            Remember password?
+                            Запомни паролата ми
                           </label>
                         </div>
                       </div>
@@ -272,21 +272,21 @@ const Signincover: FC<SignincoverProps> = () => {
                         type="submit"
                         className="ti-btn ti-btn-lg bg-primary text-white !font-medium dark:border-defaultborder/10"
                       >
-                        Sign In
+                        Влезни
                       </button>
                     </div>
                   </div>
                 </form>
                 <div className="text-center">
                   <p className="text-[0.75rem] text-[#8c9097] dark:text-white/50 mt-4">
-                    Dont have an account?{" "}
+                    Нямате профил?{" "}
                     <Link
                       to={`${
                         import.meta.env.BASE_URL
                       }authentication/signup/signupcover`}
                       className="text-primary"
                     >
-                      Sign Up
+                      Създайте такъв сега!
                     </Link>
                   </p>
                 </div>
