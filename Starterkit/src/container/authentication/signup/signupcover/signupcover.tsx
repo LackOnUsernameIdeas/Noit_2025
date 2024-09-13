@@ -189,9 +189,9 @@ const Signupcover: FC<SignupcoverProps> = () => {
                   />
                 </Link>
               </div>
-              <p className="h5 font-semibold mb-2">Sign Up</p>
+              <p className="h5 font-semibold mb-2">Създаване на профил</p>
               <p className="mb-4 text-[#8c9097] dark:text-white/50 opacity-[0.7] font-normal">
-                Welcome &amp; Join us by creating a free account !
+                Присъединете се към (име на проекта) и създайте профил!
               </p>
 
               {alerts.map((alert, idx) => (
@@ -212,13 +212,13 @@ const Signupcover: FC<SignupcoverProps> = () => {
                       htmlFor="signup-firstname"
                       className="form-label text-default"
                     >
-                      First Name
+                      Име
                     </label>
                     <input
                       type="text"
                       className="form-control form-control-lg w-full !rounded-md"
                       id="firstName"
-                      placeholder="first name"
+                      placeholder="Въведете своето първо име"
                       value={formData.firstName}
                       onChange={(e) => handleInputChange(e)}
                     />
@@ -228,13 +228,13 @@ const Signupcover: FC<SignupcoverProps> = () => {
                       htmlFor="signup-lastname"
                       className="form-label text-default"
                     >
-                      Last Name
+                      Фамилия
                     </label>
                     <input
                       type="text"
                       className="form-control form-control-lg w-full !rounded-md"
                       id="lastName"
-                      placeholder="last name"
+                      placeholder="Въведете своята фамилия"
                       value={formData.lastName}
                       onChange={handleInputChange}
                     />
@@ -244,13 +244,13 @@ const Signupcover: FC<SignupcoverProps> = () => {
                       htmlFor="signup-email"
                       className="form-label text-default"
                     >
-                      Email
+                      Имейл
                     </label>
                     <input
                       type="text"
                       className="form-control form-control-lg w-full !rounded-md"
                       id="email"
-                      placeholder="email"
+                      placeholder="Въведете своя имейл"
                       value={formData.email}
                       onChange={handleInputChange}
                     />
@@ -260,14 +260,14 @@ const Signupcover: FC<SignupcoverProps> = () => {
                       htmlFor="signup-password"
                       className="form-label text-default"
                     >
-                      Password
+                      Парола
                     </label>
                     <div className="input-group">
                       <input
                         type={passwordshow1 ? "text" : "password"}
                         className="form-control form-control-lg !rounded-e-none"
                         id="password"
-                        placeholder="password"
+                        placeholder="Въведете парола от поне 8 знака"
                         value={formData.password}
                         onChange={handleInputChange}
                       />
@@ -291,14 +291,14 @@ const Signupcover: FC<SignupcoverProps> = () => {
                       htmlFor="signup-confirmpassword"
                       className="form-label text-default"
                     >
-                      Confirm Password
+                      Потвърждаване на паролата
                     </label>
                     <div className="input-group">
                       <input
                         type={passwordshow2 ? "text" : "password"}
                         className="form-control form-control-lg !rounded-e-none"
                         id="confirmPassword"
-                        placeholder="confirm password"
+                        placeholder="Повторете своята парола"
                         value={formData.confirmPassword}
                         onChange={handleInputChange}
                       />
@@ -316,52 +316,27 @@ const Signupcover: FC<SignupcoverProps> = () => {
                         ></i>
                       </button>
                     </div>
-                    <div className="form-check mt-4 !flex !ps-0">
-                      <input
-                        className="form-check-input align-middle"
-                        type="checkbox"
-                        id="defaultCheck1"
-                      />
-                      <label
-                        className="form-check-label text-[#8c9097] dark:text-white/50 font-normal inline-block"
-                        htmlFor="defaultCheck1"
-                      >
-                        By creating an account you agree to our{" "}
-                        <Link
-                          to={`${
-                            import.meta.env.BASE_URL
-                          }pages/termsconditions`}
-                          className="text-success"
-                        >
-                          <u>&nbsp;Terms &amp; Conditions</u>
-                        </Link>
-                        &nbsp; and&nbsp;
-                        <Link to="#!" className="text-success">
-                          <u>Privacy Policy</u>
-                        </Link>
-                      </label>
-                    </div>
                   </div>
                   <div className="xl:col-span-12 col-span-12 grid mt-2">
                     <button
                       type="submit"
                       className="ti-btn ti-btn-lg bg-primary text-white !font-medium dark:border-defaultborder/10"
                     >
-                      Create Account
+                      Създай профил
                     </button>
                   </div>
                 </div>
               </form>
               <div className="text-center">
                 <p className="text-[0.75rem] text-[#8c9097] dark:text-white/50 mt-4">
-                  Already have an account?{" "}
+                  Вече имате профил?{" "}
                   <Link
                     to={`${
                       import.meta.env.BASE_URL
                     }authentication/signin/signincover/`}
                     className="text-primary"
                   >
-                    Sign In
+                    Влезнете в профила си!
                   </Link>
                 </p>
               </div>
