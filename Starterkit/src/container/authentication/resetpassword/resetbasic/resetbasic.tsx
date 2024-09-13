@@ -29,10 +29,10 @@ const Resetbasic: FC<ResetbasicProps> = () => {
               <div className="box">
                 <div className="box-body !p-[3rem]">
                   <p className="h5 font-semibold mb-2 text-center">
-                    Reset Password
+                    Забравили сте паролата си?
                   </p>
                   <p className="mb-4 text-[#8c9097] dark:text-white/50 opacity-[0.7] font-normal text-center">
-                    Hello Jhon !
+                    Въведете своя имейл тук и ако имате профил с него, ще получите линк за смяна на паролата.
                   </p>
                   <div className="grid grid-cols-12 gap-y-4">
                     <div className="xl:col-span-12 col-span-12">
@@ -40,7 +40,7 @@ const Resetbasic: FC<ResetbasicProps> = () => {
                         htmlFor="reset-password"
                         className="form-label text-default"
                       >
-                        Current Password
+                        Сегашна парола
                       </label>
                       <div className="input-group">
                         <input
@@ -69,14 +69,14 @@ const Resetbasic: FC<ResetbasicProps> = () => {
                         htmlFor="reset-newpassword"
                         className="form-label text-default"
                       >
-                        New Password
+                        Нова парола
                       </label>
                       <div className="input-group">
                         <input
                           type={passwordshow2 ? "text" : "password"}
                           className="form-control form-control-lg !rounded-e-none"
                           id="reset-newpassword"
-                          placeholder="new password"
+                          placeholder="Въведете новата си парола (мин. 8 знака)"
                         />
                         <button
                           onClick={() => setpasswordshow2(!passwordshow2)}
@@ -98,14 +98,14 @@ const Resetbasic: FC<ResetbasicProps> = () => {
                         htmlFor="reset-confirmpassword"
                         className="form-label text-default "
                       >
-                        Confirm Password
+                        Потвърдете паролата
                       </label>
                       <div className="input-group">
                         <input
                           type={passwordshow3 ? "text" : "password"}
                           className="form-control form-control-lg !rounded-e-none"
                           id="reset-confirmpassword"
-                          placeholder="confirm password"
+                          placeholder="Повторете паролата си"
                         />
                         <button
                           onClick={() => setpasswordshow3(!passwordshow3)}

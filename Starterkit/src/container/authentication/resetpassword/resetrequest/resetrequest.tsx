@@ -46,7 +46,7 @@ const ResetRequest: FC<ResetRequestProps> = () => {
 
         setAlerts([
           {
-            message: "Password reset link sent to your email!",
+            message: "Изпратихме Ви линк за смяна на паролата успешно!",
             color: "success",
             icon: <i className="ri-check-line"></i>
           }
@@ -54,7 +54,7 @@ const ResetRequest: FC<ResetRequestProps> = () => {
       } else {
         setAlerts([
           {
-            message: result.error || "Failed to request password reset.",
+            message: result.error || "Не успяхме да изпратим имейл. Опитайте отново.",
             color: "danger",
             icon: <i className="ri-error-warning-fill"></i>
           }
@@ -63,7 +63,7 @@ const ResetRequest: FC<ResetRequestProps> = () => {
     } catch (error) {
       setAlerts([
         {
-          message: "Failed to request password reset. Please try again later.",
+          message: "Не успяхме да изпратим имейл. Опитайте отново.",
           color: "danger",
           icon: <i className="ri-error-warning-fill"></i>
         }
@@ -99,9 +99,9 @@ const ResetRequest: FC<ResetRequestProps> = () => {
                   />
                 </Link>
               </div>
-              <p className="h5 font-semibold mb-2">Reset Password</p>
+              <p className="h5 font-semibold mb-2">Забравили сте паролата си?</p>
               <p className="mb-4 text-[#8c9097] dark:text-white/50 opacity-[0.7] font-normal">
-                Hello Jhon !
+                Въведете своя имейл тук и ако имате профил с него, ще получите линк за смяна на паролата.
               </p>
               {alerts.map((alert, idx) => (
                 <div
@@ -119,14 +119,14 @@ const ResetRequest: FC<ResetRequestProps> = () => {
                     htmlFor="reset-email"
                     className="form-label text-default"
                   >
-                    Email Address
+                    Имейл
                   </label>
                   <div className="input-group">
                     <input
                       type="email"
                       className="form-control form-control-lg w-full !rounded-md"
                       id="reset-email"
-                      placeholder="Enter your email address"
+                      placeholder="Въведете своя имейл адрес"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                     />
@@ -138,20 +138,20 @@ const ResetRequest: FC<ResetRequestProps> = () => {
                     onClick={handlePasswordResetRequest}
                     disabled={isSubmitting}
                   >
-                    {isSubmitting ? "Resetting Password..." : "Reset Password"}
+                    {isSubmitting ? "Изпращаме имейл..." : "Създай нова парола"}
                   </button>
                 </div>
               </div>
               <div className="text-center">
                 <p className="text-[0.75rem] text-[#8c9097] dark:text-white/50 mt-4">
-                  Already have an account?{" "}
+                  Объркахте нещо?{" "}
                   <Link
                     to={`${
                       import.meta.env.BASE_URL
                     }authentication/signin/signincover/`}
                     className="text-primary"
                   >
-                    Sign In
+                    Върни се към формата за влизане
                   </Link>
                 </p>
               </div>
