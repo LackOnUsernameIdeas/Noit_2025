@@ -66,7 +66,7 @@ const Resetcover: FC<ResetcoverProps> = () => {
       setAlerts([
         ...alerts,
         {
-          message: "Passwords do not match!",
+          message: "Паролите не са еднакви!",
           color: "danger",
           icon: <i className="ri-error-warning-line"></i>
         }
@@ -94,7 +94,7 @@ const Resetcover: FC<ResetcoverProps> = () => {
         setAlerts([
           ...alerts,
           {
-            message: "Password reset successfully! Redirecting to login...",
+            message: "Сменихте паролата си успешно! Препращане към формата за влизане...",
             color: "success",
             icon: <i className="ri-check-line"></i>
           }
@@ -104,7 +104,7 @@ const Resetcover: FC<ResetcoverProps> = () => {
         setAlerts([
           ...alerts,
           {
-            message: result.error || "An error occurred during password reset.",
+            message: result.error || "Възникна грешка!",
             color: "danger",
             icon: <i className="ri-error-warning-fill"></i>
           }
@@ -114,7 +114,7 @@ const Resetcover: FC<ResetcoverProps> = () => {
       setAlerts([
         ...alerts,
         {
-          message: "Failed to reset password. Please try again later.",
+          message: "Не успяхме да сменим паролата Ви! Опитайте отново.",
           color: "danger",
           icon: <i className="ri-error-warning-fill"></i>
         }
@@ -150,9 +150,9 @@ const Resetcover: FC<ResetcoverProps> = () => {
                   />
                 </Link>
               </div>
-              <p className="h5 font-semibold mb-2">Reset Password</p>
+              <p className="h5 font-semibold mb-2">Смяна на паролата</p>
               <p className="mb-4 text-[#8c9097] dark:text-white/50 opacity-[0.7] font-normal">
-                Hello Jhon !
+                Сменете своята парола тук!
               </p>
               {alerts.map((alert, idx) => (
                 <div
@@ -170,14 +170,14 @@ const Resetcover: FC<ResetcoverProps> = () => {
                     htmlFor="reset-newpassword"
                     className="form-label text-default"
                   >
-                    New Password
+                    Нова парола
                   </label>
                   <div className="input-group">
                     <input
                       type={passwordShow1 ? "text" : "password"}
                       className="form-control form-control-lg !rounded-e-none"
                       id="reset-password"
-                      placeholder="New password"
+                      placeholder="Въведете новата си парола (мин. 8 знака)"
                       value={newPassword}
                       onChange={(e) => setNewPassword(e.target.value)}
                     />
@@ -201,14 +201,14 @@ const Resetcover: FC<ResetcoverProps> = () => {
                     htmlFor="reset-confirmpassword"
                     className="form-label text-default"
                   >
-                    Confirm Password
+                    Потвърждаване на паролата
                   </label>
                   <div className="input-group">
                     <input
                       type={passwordShow2 ? "text" : "password"}
                       className="form-control form-control-lg !rounded-e-none"
                       id="reset-cpassword"
-                      placeholder="Confirm password"
+                      placeholder="Повторете своята парола"
                       value={confirmPassword}
                       onChange={(e) => setConfirmPassword(e.target.value)}
                     />
@@ -233,20 +233,20 @@ const Resetcover: FC<ResetcoverProps> = () => {
                     onClick={handlePasswordReset}
                     disabled={isSubmitting}
                   >
-                    {isSubmitting ? "Resetting Password..." : "Reset Password"}
+                    {isSubmitting ? "Сменяме паролата Ви..." : "Смени паролата"}
                   </button>
                 </div>
               </div>
               <div className="text-center">
                 <p className="text-[0.75rem] text-[#8c9097] dark:text-white/50 mt-4">
-                  Already have an account?{" "}
+                  Объркахте нещо?{" "}
                   <Link
                     to={`${
                       import.meta.env.BASE_URL
                     }authentication/signin/signincover/`}
                     className="text-primary"
                   >
-                    Sign In
+                    Върни се към формата за влизане
                   </Link>
                 </p>
               </div>
