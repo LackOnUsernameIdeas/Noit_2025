@@ -1,10 +1,9 @@
 import { FC, Fragment, useCallback, useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
-import desktoplogo from "../../../../assets/images/brand-logos/desktop-logo.png";
-import desktopdarklogo from "../../../../assets/images/brand-logos/desktop-dark.png";
-import img2 from "../../../../assets/images/authentication/2.png";
-import img3 from "../../../../assets/images/authentication/3.png";
+import desktopdarklogo from "../../../assets/images/brand-logos/desktop-dark.png";
+import img2 from "../../../assets/images/authentication/2.png";
+import img3 from "../../../assets/images/authentication/3.png";
 
 // Import Swiper styles
 import "swiper/css";
@@ -178,7 +177,7 @@ const Twostepcover: FC<TwostepcoverProps> = () => {
                     to={`${import.meta.env.BASE_URL}app/home/`}
                   >
                     <img
-                      src={desktoplogo}
+                      src={desktopdarklogo}
                       alt=""
                       className="authentication-brand desktop-logo"
                     />

@@ -1,9 +1,9 @@
 import { FC, Fragment, useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import desktoplogo from "../../../../assets/images/brand-logos/desktop-logo.png";
-import desktopdarklogo from "../../../../assets/images/brand-logos/desktop-dark.png";
-import img2 from "../../../../assets/images/authentication/2.png";
-import img3 from "../../../../assets/images/authentication/3.png";
+import desktoplogo from "../../../assets/images/brand-logos/desktop-logo.png";
+import desktopdarklogo from "../../../assets/images/brand-logos/desktop-dark.png";
+import img2 from "../../../assets/images/authentication/2.png";
+import img3 from "../../../assets/images/authentication/3.png";
 
 // Import Swiper styles
 import "swiper/css";

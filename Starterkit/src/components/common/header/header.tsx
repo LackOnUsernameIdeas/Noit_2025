@@ -1,5 +1,4 @@
 import { FC, Fragment } from "react";
-import Modalsearch from "../modalsearch/modalsearch";
 import { Link, useNavigate } from "react-router-dom";
 import store from "../../../redux/store";
 import { connect } from "react-redux";
@@ -143,7 +142,6 @@ const Header: FC<HeaderProps> = ({ local_varaiable, ThemeChanger }: any) => {
           </div>
         </nav>
       </header>
-      <Modalsearch />
     </Fragment>
   );
 };

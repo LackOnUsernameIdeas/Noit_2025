@@ -1,9 +1,9 @@
-import { FC, Fragment, useEffect, useState } from "react";
+import { FC, Fragment, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import desktoplogo from "../../../../assets/images/brand-logos/desktop-logo.png";
-import desktopdarklogo from "../../../../assets/images/brand-logos/desktop-dark.png";
-import img2 from "../../../../assets/images/authentication/2.png";
-import img3 from "../../../../assets/images/authentication/3.png";
+import desktoplogo from "../../../assets/images/brand-logos/desktop-logo.png";
+import desktopdarklogo from "../../../assets/images/brand-logos/desktop-dark.png";
+import img2 from "../../../assets/images/authentication/2.png";
+import img3 from "../../../assets/images/authentication/3.png";
 
 // Import Swiper styles
 import "swiper/css";
@@ -12,100 +12,50 @@ import "swiper/css/navigation";
 
 // import required modules
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 
-interface ResetcoverProps {}
+interface ResetRequestProps {}
 
-const Resetcover: FC<ResetcoverProps> = () => {
-  const [passwordShow1, setPasswordShow1] = useState(false);
-  const [passwordShow2, setPasswordShow2] = useState(false);
-
-  const [newPassword, setNewPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-
+const ResetRequest: FC<ResetRequestProps> = () => {
+  const [email, setEmail] = useState("");
   const [alerts, setAlerts] = useState<
     { message: string; color: string; icon: JSX.Element }[]
   >([]);
-
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const { token } = useParams(); // Assuming the token is passed in the URL as a parameter
-  console.log("token: ", token);
-  const navigate = useNavigate();
+  const handlePasswordResetRequest = async () => {
+    setIsSubmitting(true);
 
-  useEffect(() => {
-    const validateToken = async () => {
-      try {
-        const response = await fetch("http://localhost:5000/token-validation", {
+    try {
+      const response = await fetch(
+        "http://localhost:5000/password-reset-request",
+        {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
           },
-          body: JSON.stringify({ token })
-        });
-
-        if (!response.ok) {
-          throw new Error("Token validation failed");
+          body: JSON.stringify({ email })
         }
-
-        const result = await response.json();
-        console.log("result: ", result);
-        if (!result.valid) navigate("/authentication/signin/signincover");
-      } catch (error) {
-        console.error("Error validating token:", error);
-        navigate("/authentication/signin/signincover"); // Redirect to an error page if the request fails
-      }
-    };
-
-    validateToken();
-  }, [token, navigate]);
-
-  const handlePasswordReset = async () => {
-    if (newPassword !== confirmPassword) {
-      setAlerts([
-        ...alerts,
-        {
-          message: "Паролите не са еднакви!",
-          color: "danger",
-          icon: <i className="ri-error-warning-line"></i>
-        }
-      ]);
-      return;
-    }
-
-    setIsSubmitting(true);
-
-    try {
-      const response = await fetch("http://localhost:5000/password-reset", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          token, // The token from the URL
-          newPassword
-        })
-      });
+      );
 
       const result = await response.json();
 
       if (response.ok) {
+        console.log(result);
+
         setAlerts([
-          ...alerts,
           {
-            message:
-              "Сменихте паролата си успешно! Препращане към формата за влизане...",
+            message: "Изпратихме Ви линк за смяна на паролата успешно!",
             color: "success",
             icon: <i className="ri-check-line"></i>
           }
         ]);
-        navigate("/authentication/signin/signincover/");
       } else {
         setAlerts([
-          ...alerts,
           {
-            message: result.error || "Възникна грешка!",
+            message:
+              result.error || "Не успяхме да изпратим имейл. Опитайте отново.",
             color: "danger",
             icon: <i className="ri-error-warning-fill"></i>
           }
@@ -113,9 +63,8 @@ const Resetcover: FC<ResetcoverProps> = () => {
       }
     } catch (error) {
       setAlerts([
-        ...alerts,
         {
-          message: "Не успяхме да сменим паролата Ви! Опитайте отново.",
+          message: "Не успяхме да изпратим имейл. Опитайте отново.",
           color: "danger",
           icon: <i className="ri-error-warning-fill"></i>
         }
@@ -151,9 +100,12 @@ const Resetcover: FC<ResetcoverProps> = () => {
                   />
                 </Link>
               </div>
-              <p className="h5 font-semibold mb-2">Смяна на паролата</p>
+              <p className="h5 font-semibold mb-2">
+                Забравили сте паролата си?
+              </p>
               <p className="mb-4 text-[#8c9097] dark:text-white/50 opacity-[0.7] font-normal">
-                Сменете своята парола тук!
+                Въведете своя имейл тук и ако имате профил с него, ще получите
+                линк за смяна на паролата.
               </p>
               {alerts.map((alert, idx) => (
                 <div
@@ -168,73 +120,29 @@ const Resetcover: FC<ResetcoverProps> = () => {
               <div className="grid grid-cols-12 gap-y-4">
                 <div className="xl:col-span-12 col-span-12 mt-0">
                   <label
-                    htmlFor="reset-newpassword"
+                    htmlFor="reset-email"
                     className="form-label text-default"
                   >
-                    Нова парола
+                    Имейл
                   </label>
                   <div className="input-group">
                     <input
-                      type={passwordShow1 ? "text" : "password"}
-                      className="form-control form-control-lg !rounded-e-none"
-                      id="reset-password"
-                      placeholder="Въведете новата си парола (мин. 8 знака)"
-                      value={newPassword}
-                      onChange={(e) => setNewPassword(e.target.value)}
+                      type="email"
+                      className="form-control form-control-lg w-full !rounded-md"
+                      id="reset-email"
+                      placeholder="Въведете своя имейл адрес"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
                     />
-                    <button
-                      onClick={() => setPasswordShow1(!passwordShow1)}
-                      aria-label="button"
-                      className="ti-btn ti-btn-light !mb-0 !rounded-s-none"
-                      type="button"
-                      id="button-addon2"
-                    >
-                      <i
-                        className={`${
-                          passwordShow1 ? "ri-eye-line" : "ri-eye-off-line"
-                        } align-middle`}
-                      ></i>
-                    </button>
-                  </div>
-                </div>
-                <div className="xl:col-span-12 col-span-12 mt-0">
-                  <label
-                    htmlFor="reset-confirmpassword"
-                    className="form-label text-default"
-                  >
-                    Потвърждаване на паролата
-                  </label>
-                  <div className="input-group">
-                    <input
-                      type={passwordShow2 ? "text" : "password"}
-                      className="form-control form-control-lg !rounded-e-none"
-                      id="reset-cpassword"
-                      placeholder="Повторете своята парола"
-                      value={confirmPassword}
-                      onChange={(e) => setConfirmPassword(e.target.value)}
-                    />
-                    <button
-                      onClick={() => setPasswordShow2(!passwordShow2)}
-                      aria-label="button"
-                      className="ti-btn ti-btn-light !mb-0 !rounded-s-none"
-                      type="button"
-                      id="button-addon2"
-                    >
-                      <i
-                        className={`${
-                          passwordShow2 ? "ri-eye-line" : "ri-eye-off-line"
-                        } align-middle`}
-                      ></i>
-                    </button>
                   </div>
                 </div>
                 <div className="xl:col-span-12 col-span-12 grid mt-2">
                   <button
                     className="ti-btn ti-btn-primary w-full py-2"
-                    onClick={handlePasswordReset}
+                    onClick={handlePasswordResetRequest}
                     disabled={isSubmitting}
                   >
-                    {isSubmitting ? "Сменяме паролата Ви..." : "Смени паролата"}
+                    {isSubmitting ? "Изпращаме имейл..." : "Създай нова парола"}
                   </button>
                 </div>
               </div>
@@ -349,4 +257,4 @@ const Resetcover: FC<ResetcoverProps> = () => {
   );
 };
 
-export default Resetcover;
+export default ResetRequest;
