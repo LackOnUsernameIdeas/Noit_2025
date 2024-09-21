@@ -42,7 +42,7 @@ const Twostepcover: FC<TwostepcoverProps> = () => {
       localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
     if (token) {
       // Redirect to the app if token exists
-      navigate(`${import.meta.env.BASE_URL}app/dashboards/crm/`);
+      navigate(`${import.meta.env.BASE_URL}app/home/`);
     }
   }, [navigate]);
 
@@ -175,7 +175,7 @@ const Twostepcover: FC<TwostepcoverProps> = () => {
                 <div className="mb-4">
                   <Link
                     aria-label="anchor"
-                    to={`${import.meta.env.BASE_URL}app/dashboards/crm/`}
+                    to={`${import.meta.env.BASE_URL}app/home/`}
                   >
                     <img
                       src={desktoplogo}
@@ -278,12 +278,16 @@ const Twostepcover: FC<TwostepcoverProps> = () => {
                       </div>
                     </div>
                     <div className="form-check mt-2 mb-0 !ps-0">
-                      <label className="form-check-label" htmlFor="defaultCheck1">
+                      <label
+                        className="form-check-label"
+                        htmlFor="defaultCheck1"
+                      >
                         Не получихте код?
                         {resendCooldown > 0 ? (
                           // Показва съобщението с отброяването до следващия код
                           <span className="text-danger ms-2">
-                            Ще можете да получите нов код след {resendCooldown} сек.
+                            Ще можете да получите нов код след {resendCooldown}{" "}
+                            сек.
                           </span>
                         ) : (
                           // Показва бутона отново, когато таймера стигне 0

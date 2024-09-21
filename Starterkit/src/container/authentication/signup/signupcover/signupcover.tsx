@@ -43,7 +43,7 @@ const Signupcover: FC<SignupcoverProps> = () => {
       localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
     if (token) {
       // Redirect to the app if token exists
-      navigate(`${import.meta.env.BASE_URL}app/dashboards/crm/`);
+      navigate(`${import.meta.env.BASE_URL}app/home/`);
     }
   }, [navigate]);
 
@@ -175,7 +175,7 @@ const Signupcover: FC<SignupcoverProps> = () => {
               <div className="mb-4">
                 <Link
                   aria-label="anchor"
-                  to={`${import.meta.env.BASE_URL}app/dashboards/crm/`}
+                  to={`${import.meta.env.BASE_URL}app/home/`}
                 >
                   <img
                     src={desktoplogo}

@@ -59,7 +59,7 @@ const Signincover: FC<SignincoverProps> = () => {
 
           if (result.valid) {
             // Redirect to the app if the token is valid
-            navigate(`${import.meta.env.BASE_URL}app/dashboards/crm/`);
+            navigate(`${import.meta.env.BASE_URL}app/home`);
           } else {
             // Token is invalid, you might want to handle this scenario
             console.log("Invalid token");
@@ -139,7 +139,7 @@ const Signincover: FC<SignincoverProps> = () => {
         sessionStorage.setItem("authToken", data.token);
       }
 
-      navigate(`${import.meta.env.BASE_URL}app/dashboards/crm/`);
+      navigate(`${import.meta.env.BASE_URL}app/home`);
     } catch (error: any) {
       setAlerts([
         {
@@ -165,7 +165,7 @@ const Signincover: FC<SignincoverProps> = () => {
                 <div className="mb-4">
                   <Link
                     aria-label="anchor"
-                    to={`${import.meta.env.BASE_URL}app/dashboards/crm/`}
+                    to={`${import.meta.env.BASE_URL}app/home`}
                   >
                     <img
                       src={desktoplogo}

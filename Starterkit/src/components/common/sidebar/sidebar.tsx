@@ -643,7 +643,7 @@ const Sidebar: FC<SidebarProps> = ({ local_varaiable, ThemeChanger }: any) => {
       >
         <div className="main-sidebar-header">
           <a
-            href={`${import.meta.env.BASE_URL}app/dashboards/crm/`}
+            href={`${import.meta.env.BASE_URL}app/home/`}
             className="header-logo"
           >
             <img src={logo1} alt="logo" className="desktop-logo" />

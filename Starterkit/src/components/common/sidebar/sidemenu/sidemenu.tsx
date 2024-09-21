@@ -3,8 +3,9 @@ export const MENUITEMS = [
     menutitle: "MAIN"
   },
   {
+    path: `${import.meta.env.BASE_URL}app/home`,
     icon: <i className="side-menu__icon bx bx-home"></i>,
-    type: "sub",
+    type: "link",
     Name: "",
     active: false,
     selected: false,
@@ -12,16 +13,20 @@ export const MENUITEMS = [
     badge: "",
     badgetxt: "12",
     class:
-      "badge !bg-warning/10 !text-warning !py-[0.25rem] !px-[0.45rem] !text-[0.75em] ms-2",
-    children: [
-      {
-        path: `${import.meta.env.BASE_URL}app/dashboards/crm`,
-        type: "link",
-        active: false,
-        selected: false,
-        title: "CRM"
-      }
-    ]
+      "badge !bg-warning/10 !text-warning !py-[0.25rem] !px-[0.45rem] !text-[0.75em] ms-2"
+  },
+  {
+    path: `${import.meta.env.BASE_URL}app/test`,
+    icon: <i className="side-menu__icon bx bx-home"></i>,
+    type: "link",
+    Name: "",
+    active: false,
+    selected: false,
+    title: "Test",
+    badge: "",
+    badgetxt: "12",
+    class:
+      "badge !bg-warning/10 !text-warning !py-[0.25rem] !px-[0.45rem] !text-[0.75em] ms-2"
   },
 
   {

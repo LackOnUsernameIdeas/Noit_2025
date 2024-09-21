@@ -26,7 +26,7 @@ const Error500: FC<Error500Props> = () => {
                     </div>
                   </div>
                   <Link
-                    to={`${import.meta.env.BASE_URL}app/dashboards/crm/`}
+                    to={`${import.meta.env.BASE_URL}app/home/`}
                     className="ti-btn bg-primary text-white font-semibold"
                   >
                     <i className="ri-arrow-left-line align-middle inline-block"></i>

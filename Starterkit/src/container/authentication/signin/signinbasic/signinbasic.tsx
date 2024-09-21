@@ -15,7 +15,7 @@ const Signinbasic: FC<SigninbasicProps> = () => {
             <div className="xxl:col-span-4 xl:col-span-4 lg:col-span-4 md:col-span-3 sm:col-span-2"></div>
             <div className="xxl:col-span-4 xl:col-span-4 lg:col-span-4 md:col-span-6 sm:col-span-8 col-span-12">
               <div className="my-[2.5rem] flex justify-center">
-                <Link to={`${import.meta.env.BASE_URL}app/dashboards/crm/`}>
+                <Link to={`${import.meta.env.BASE_URL}app/home/`}>
                   <img src={desktoplogo} alt="logo" className="desktop-logo" />
                   <img
                     src={desktopdarklogo}
@@ -100,7 +100,7 @@ const Signinbasic: FC<SigninbasicProps> = () => {
                     </div>
                     <div className="xl:col-span-12 col-span-12 grid mt-2">
                       <Link
-                        to={`${import.meta.env.BASE_URL}app/dashboards/crm/`}
+                        to={`${import.meta.env.BASE_URL}app/home/`}
                         className="ti-btn ti-btn-primary !bg-primary !text-white !font-medium"
                       >
                         Sign In

@@ -26,7 +26,7 @@ const Error401: FC<Error401Props> = () => {
                     </div>
                   </div>
                   <Link
-                    to={`${import.meta.env.BASE_URL}app/dashboards/crm/`}
+                    to={`${import.meta.env.BASE_URL}app/home/`}
                     className="ti-btn bg-primary text-white font-semibold dark:border-defaultborder/10"
                   >
                     <i className="ri-arrow-left-line align-middle inline-block"></i>

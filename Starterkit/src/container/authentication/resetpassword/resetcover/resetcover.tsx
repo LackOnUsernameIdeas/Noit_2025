@@ -94,7 +94,8 @@ const Resetcover: FC<ResetcoverProps> = () => {
         setAlerts([
           ...alerts,
           {
-            message: "Сменихте паролата си успешно! Препращане към формата за влизане...",
+            message:
+              "Сменихте паролата си успешно! Препращане към формата за влизане...",
             color: "success",
             icon: <i className="ri-check-line"></i>
           }
@@ -136,7 +137,7 @@ const Resetcover: FC<ResetcoverProps> = () => {
               <div className="mb-4">
                 <Link
                   aria-label="anchor"
-                  to={`${import.meta.env.BASE_URL}app/dashboards/crm/`}
+                  to={`${import.meta.env.BASE_URL}app/home/`}
                 >
                   <img
                     src={desktoplogo}

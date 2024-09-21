@@ -21,6 +21,7 @@ import Signupcover from "./container/authentication/signup/signupcover/signupcov
 import Twostepbasic from "./container/authentication/twostepverification/twostepbasic/twostepbasic.tsx";
 import Twostepcover from "./container/authentication/twostepverification/twostepcover/twostepcover.tsx";
 import Crm from "./container/dashboards/crm/crm.tsx";
+import Test from "./container/test/test.tsx";
 import "./index.scss";
 import ResetRequest from "./container/authentication/resetpassword/resetrequest/resetrequest.tsx";
 import PrivateRoute from "./pages/PrivateRoute.tsx";
@@ -42,8 +43,10 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
               </PrivateRoute>
             }
           >
-            <Route index element={<Crm />} />
-            <Route path="dashboards/crm" element={<Crm />} />
+            {/* Default route */}
+            <Route path="" element={<Navigate to="home" />} />
+            <Route path="home" element={<Crm />} />
+            <Route path="test" element={<Test />} />
           </Route>
 
           <Route path="/" element={<Authenticationlayout />}>

@@ -33,7 +33,7 @@ const Createcover: FC<CoverProps> = () => {
                 <div className="mb-4">
                   <Link
                     aria-label="anchor"
-                    to={`${import.meta.env.BASE_URL}app/dashboards/crm/`}
+                    to={`${import.meta.env.BASE_URL}app/home/`}
                   >
                     <img
                       src={desktoplogo}
@@ -187,7 +187,7 @@ const Createcover: FC<CoverProps> = () => {
                   <p className="text-[0.75rem] text-[#8c9097] dark:text-white/50 mt-4">
                     Back to home ?{" "}
                     <Link
-                      to={`${import.meta.env.BASE_URL}app/dashboards/crm/`}
+                      to={`${import.meta.env.BASE_URL}app/home/`}
                       className="text-primary"
                     >
                       Click Here

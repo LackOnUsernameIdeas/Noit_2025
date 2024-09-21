@@ -54,7 +54,8 @@ const ResetRequest: FC<ResetRequestProps> = () => {
       } else {
         setAlerts([
           {
-            message: result.error || "Не успяхме да изпратим имейл. Опитайте отново.",
+            message:
+              result.error || "Не успяхме да изпратим имейл. Опитайте отново.",
             color: "danger",
             icon: <i className="ri-error-warning-fill"></i>
           }
@@ -85,7 +86,7 @@ const ResetRequest: FC<ResetRequestProps> = () => {
               <div className="mb-4">
                 <Link
                   aria-label="anchor"
-                  to={`${import.meta.env.BASE_URL}app/dashboards/crm/`}
+                  to={`${import.meta.env.BASE_URL}app/home/`}
                 >
                   <img
                     src={desktoplogo}
@@ -99,9 +100,12 @@ const ResetRequest: FC<ResetRequestProps> = () => {
                   />
                 </Link>
               </div>
-              <p className="h5 font-semibold mb-2">Забравили сте паролата си?</p>
+              <p className="h5 font-semibold mb-2">
+                Забравили сте паролата си?
+              </p>
               <p className="mb-4 text-[#8c9097] dark:text-white/50 opacity-[0.7] font-normal">
-                Въведете своя имейл тук и ако имате профил с него, ще получите линк за смяна на паролата.
+                Въведете своя имейл тук и ако имате профил с него, ще получите
+                линк за смяна на паролата.
               </p>
               {alerts.map((alert, idx) => (
                 <div
