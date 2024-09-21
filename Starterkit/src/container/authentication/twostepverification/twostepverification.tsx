@@ -13,6 +13,7 @@ import "swiper/css/navigation";
 // import required modules
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import { Helmet } from "react-helmet-async";
+import { Colorspinner } from "../../uielements/spinners/spinnerdata";
 interface TwostepcoverProps {}
 
 const Twostepcover: FC<TwostepcoverProps> = () => {
@@ -26,6 +27,7 @@ const Twostepcover: FC<TwostepcoverProps> = () => {
   };
 
   const [resendCooldown, setResendCooldown] = useState(0);
+  const [loading, setLoading] = useState(true);
 
   const [alerts, setAlerts] = useState<
     { message: string; color: string; icon: JSX.Element }[]
@@ -48,9 +50,11 @@ const Twostepcover: FC<TwostepcoverProps> = () => {
   useEffect(() => {
     if (resendCooldown > 0) {
       const timer = setTimeout(() => {
-        setResendCooldown(resendCooldown - 1);
+        setResendCooldown((prev) => (prev > 0 ? prev - 1 : 0));
       }, 1000);
       return () => clearTimeout(timer);
+    } else {
+      setLoading(false); // Stop loading when cooldown is over
     }
   }, [resendCooldown]);
 
@@ -121,7 +125,9 @@ const Twostepcover: FC<TwostepcoverProps> = () => {
   const handleResendCode = async () => {
     if (resendCooldown > 0) return; // Prevent resend if cooldown is active
 
+    setLoading(true); // Set loading when the code is being resent
     console.log(email);
+
     try {
       const response = await fetch("http://localhost:5000/resend", {
         method: "POST",
@@ -157,6 +163,8 @@ const Twostepcover: FC<TwostepcoverProps> = () => {
           icon: <i className="ri-error-warning-fill"></i>
         }
       ]);
+    } finally {
+      setLoading(false); // Hide loading once the operation is complete
     }
   };
 
@@ -282,14 +290,19 @@ const Twostepcover: FC<TwostepcoverProps> = () => {
                         htmlFor="defaultCheck1"
                       >
                         Не получихте код?
-                        {resendCooldown > 0 ? (
-                          // Показва съобщението с отброяването до следващия код
+                        {loading ? (
+                          <div
+                            className="ti-spinner me-2 text-danger"
+                            role="status"
+                          >
+                            <span className="sr-only">Loading...</span>
+                          </div>
+                        ) : resendCooldown > 0 ? (
                           <span className="text-danger ms-2">
-                            Ще можете да получите нов код след {resendCooldown}{" "}
-                            сек.
+                            Ще можете да изпратите нов код след{" "}
+                            <b>{resendCooldown}</b> сек.
                           </span>
                         ) : (
-                          // Показва бутона отново, когато таймера стигне 0
                           <button
                             onClick={handleResendCode}
                             className="text-primary ms-2 inline-block"
