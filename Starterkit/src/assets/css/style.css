@@ -12735,6 +12735,10 @@ label {
 #loader {
   @apply fixed top-0 start-0 w-full h-full bg-white dark:bg-bodybg2 flex justify-center items-center z-[9999] opacity-100 transition-opacity duration-[1000ms]; /* Transition for opacity */
 }
+
+.hidden {
+  display: none;
+}
 /* End:: Loader */
 
 /* Start Datatable  Styles */

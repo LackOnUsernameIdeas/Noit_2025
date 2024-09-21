@@ -29,6 +29,7 @@ function App() {
   }, []);
   return (
     <Fragment>
+      <Loader />
       <Provider store={store}>
         <HelmetProvider>
           <Helmet
