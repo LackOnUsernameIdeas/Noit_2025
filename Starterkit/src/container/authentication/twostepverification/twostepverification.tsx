@@ -13,7 +13,6 @@ import "swiper/css/navigation";
 // import required modules
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import { Helmet } from "react-helmet-async";
-import { Colorspinner } from "../../uielements/spinners/spinnerdata";
 interface TwostepcoverProps {}
 
 const Twostepcover: FC<TwostepcoverProps> = () => {
