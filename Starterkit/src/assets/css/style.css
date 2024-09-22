@@ -15990,7 +15990,7 @@ body {
 /* End Progress Styles */
 /* Start Spinner Styles */
 .ti-spinner {
-  @apply animate-spin inline-block w-6 h-6 border-[3px] border-current border-t-transparent rounded-full;
+  @apply animate-spin inline-block w-3 h-3 border-[3px] border-current border-t-transparent rounded-full;
 }
 
 /* End Spinner Styles */

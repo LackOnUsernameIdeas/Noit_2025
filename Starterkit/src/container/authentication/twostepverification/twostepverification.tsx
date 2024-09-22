@@ -13,6 +13,7 @@ import "swiper/css/navigation";
 // import required modules
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import { Helmet } from "react-helmet-async";
+import { IconBoxMargin } from "../../../assets/iconfonts/tabler-icons/icons-react";
 interface TwostepcoverProps {}
 
 const Twostepcover: FC<TwostepcoverProps> = () => {
@@ -291,10 +292,10 @@ const Twostepcover: FC<TwostepcoverProps> = () => {
                         Не получихте код?
                         {loading ? (
                           <div
-                            className="ti-spinner me-2 text-danger"
+                            className="ti-spinner mt-1 me-2 ms-3 text-danger"
                             role="status"
                           >
-                            <span className="sr-only">Loading...</span>
+                            <span className="sr-only">Зареждане...</span>
                           </div>
                         ) : resendCooldown > 0 ? (
                           <span className="text-danger ms-2">
