@@ -13,7 +13,7 @@ import "swiper/css/navigation";
 // import required modules
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import { Helmet } from "react-helmet-async";
-import { IconBoxMargin } from "../../../assets/iconfonts/tabler-icons/icons-react";
+
 interface TwostepcoverProps {}
 
 const Twostepcover: FC<TwostepcoverProps> = () => {
