@@ -28,6 +28,15 @@ const Signupcover: FC<SignupcoverProps> = () => {
     password: "",
     confirmPassword: ""
   });
+
+  const [emptyFields, setEmptyFields] = useState({ 
+    firstName: false,
+    lastName: false,
+    email: false,
+    password: false,
+    confirmPassword: false
+  });
+
   const [passwordshow1, setpasswordshow1] = useState(false);
   const [passwordshow2, setpasswordshow2] = useState(false);
 
@@ -53,19 +62,33 @@ const Signupcover: FC<SignupcoverProps> = () => {
       ...prevData,
       [id]: value
     }));
+
+    setEmptyFields((prevState) => ({
+      ...prevState,
+      [id]: false, // Reset field error when typing
+    }));
   };
 
   // Handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    const emptyFirstName = !formData.firstName;
+    const emptyLastName = !formData.lastName;
+    const emptyEmail = !formData.email;
+    const emptyPassword = !formData.password;
+    const emptyConfirmPassword = !formData.confirmPassword;
 
     if (
-      !formData.firstName ||
-      !formData.lastName ||
-      !formData.email ||
-      !formData.password ||
-      !formData.confirmPassword
-    ) {
+      emptyFirstName || emptyLastName || emptyEmail || emptyPassword || emptyConfirmPassword) {
+        setEmptyFields({ 
+        firstName: emptyFirstName,
+        lastName: emptyLastName,
+        email: emptyEmail, 
+        password: emptyPassword,
+        confirmPassword: emptyConfirmPassword,
+        });
+
       setAlerts([
         {
           message: "Всички полета са задължителни!",
@@ -131,7 +154,7 @@ const Signupcover: FC<SignupcoverProps> = () => {
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.error || "Something went wrong");
+        throw new Error(errorData.error || "Нещо се обърка! :(");
       }
 
       // Redirect to the verification page
@@ -147,7 +170,7 @@ const Signupcover: FC<SignupcoverProps> = () => {
       let errorMessage = "";
       switch (true) {
         case error.message.includes("Duplicate entry"):
-          errorMessage = "User with this email address already exists!";
+          errorMessage = "Потребител с този имейл адрес вече съществува!";
           break;
         default:
           errorMessage = error.message;
@@ -216,7 +239,7 @@ const Signupcover: FC<SignupcoverProps> = () => {
                     </label>
                     <input
                       type="text"
-                      className="form-control form-control-lg w-full !rounded-md"
+                      className={`form-control form-control-lg w-full !rounded-md ${emptyFields.firstName ? 'empty-field' : ''}`}
                       id="firstName"
                       placeholder="Въведете своето първо име"
                       value={formData.firstName}
@@ -232,7 +255,7 @@ const Signupcover: FC<SignupcoverProps> = () => {
                     </label>
                     <input
                       type="text"
-                      className="form-control form-control-lg w-full !rounded-md"
+                      className={`form-control form-control-lg w-full !rounded-md ${emptyFields.lastName ? 'empty-field' : ''}`}
                       id="lastName"
                       placeholder="Въведете своята фамилия"
                       value={formData.lastName}
@@ -248,7 +271,7 @@ const Signupcover: FC<SignupcoverProps> = () => {
                     </label>
                     <input
                       type="text"
-                      className="form-control form-control-lg w-full !rounded-md"
+                      className={`form-control form-control-lg w-full !rounded-md ${emptyFields.email ? 'empty-field' : ''}`}
                       id="email"
                       placeholder="Въведете своя имейл"
                       value={formData.email}
@@ -265,7 +288,7 @@ const Signupcover: FC<SignupcoverProps> = () => {
                     <div className="input-group">
                       <input
                         type={passwordshow1 ? "text" : "password"}
-                        className="form-control form-control-lg !rounded-e-none"
+                        className={`form-control form-control-lg w-full !rounded-e-none ${emptyFields.password ? 'empty-field' : ''}`}
                         id="password"
                         placeholder="Въведете парола от поне 8 знака"
                         value={formData.password}
@@ -296,7 +319,7 @@ const Signupcover: FC<SignupcoverProps> = () => {
                     <div className="input-group">
                       <input
                         type={passwordshow2 ? "text" : "password"}
-                        className="form-control form-control-lg !rounded-e-none"
+                        className={`form-control form-control-lg w-full !rounded-e-none ${emptyFields.confirmPassword ? 'empty-field' : ''}`}
                         id="confirmPassword"
                         placeholder="Повторете своята парола"
                         value={formData.confirmPassword}

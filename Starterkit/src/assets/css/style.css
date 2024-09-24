@@ -19472,4 +19472,8 @@ input[type="color" i]::-webkit-color-swatch {
   @apply w-0;
 }
 
+.empty-field{
+  border: 2px solid #e6533c !important;
+}
+
 /*# sourceMappingURL=style.css.map */

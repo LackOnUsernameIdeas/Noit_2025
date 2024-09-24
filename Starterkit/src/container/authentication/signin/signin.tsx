@@ -22,6 +22,10 @@ const Signincover: FC<SignincoverProps> = () => {
     email: "",
     password: ""
   });
+  const [emptyFields, setEmptyFields] = useState({ 
+    email: false, 
+    password: false 
+  });
 
   const [passwordShow, setpasswordShow] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
@@ -88,6 +92,11 @@ const Signincover: FC<SignincoverProps> = () => {
       ...prevData,
       [id]: value
     }));
+
+    setEmptyFields((prevState) => ({
+      ...prevState,
+      [id]: false, // Reset field error when typing
+    }));
   };
 
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -97,7 +106,15 @@ const Signincover: FC<SignincoverProps> = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!formData.email || !formData.password) {
+    const emptyEmail = !formData.email;
+    const emptyPassword = !formData.password;
+
+    if (emptyEmail || emptyPassword) {
+      setEmptyFields({ 
+        email: emptyEmail, 
+        password: emptyPassword,
+      });
+      
       setAlerts([
         {
           message: "Всички полета са задължителни!",
@@ -119,7 +136,7 @@ const Signincover: FC<SignincoverProps> = () => {
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.error || "Something went wrong");
+        throw new Error(errorData.error || "Нещо се обърка! :(");
       }
 
       const data = await response.json();
@@ -204,7 +221,7 @@ const Signincover: FC<SignincoverProps> = () => {
                       </label>
                       <input
                         type="email"
-                        className="form-control form-control-lg w-full !rounded-md"
+                        className={`form-control form-control-lg w-full !rounded-md ${emptyFields.email ? 'empty-field' : ''}`}
                         id="email"
                         placeholder="Въведете своя имейл"
                         value={formData.email}
@@ -229,7 +246,7 @@ const Signincover: FC<SignincoverProps> = () => {
                       <div className="input-group">
                         <input
                           type={passwordShow ? "text" : "password"}
-                          className="form-control form-control-lg !rounded-e-none"
+                          className={`form-control form-control-lg !rounded-e-none ${emptyFields.password ? 'empty-field' : ''}`}
                           id="password"
                           placeholder="Въведете своята парола"
                           value={formData.password}
