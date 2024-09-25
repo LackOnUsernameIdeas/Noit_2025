@@ -15,6 +15,8 @@ import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 
+import * as EmailValidator from "email-validator";
+
 interface ResetRequestProps {}
 
 const ResetRequest: FC<ResetRequestProps> = () => {
@@ -26,6 +28,30 @@ const ResetRequest: FC<ResetRequestProps> = () => {
 
   const handlePasswordResetRequest = async () => {
     setIsSubmitting(true);
+
+    if (email == "") {
+      setAlerts([
+        {
+          message: "Всички полета са задължителни!",
+          color: "danger",
+          icon: <i className="ri-error-warning-line"></i>
+        }
+      ]);
+      setIsSubmitting(false);
+      return;
+    }
+
+    if (!EmailValidator.validate(email)) {
+      setAlerts([
+        {
+          message: "Невалиден формат на имейл адреса.",
+          color: "danger",
+          icon: <i className="ri-error-warning-line"></i>
+        }
+      ]);
+      setIsSubmitting(false);
+      return;
+    }
 
     try {
       const response = await fetch(
@@ -57,7 +83,7 @@ const ResetRequest: FC<ResetRequestProps> = () => {
             message:
               result.error || "Не успяхме да изпратим имейл. Опитайте отново.",
             color: "danger",
-            icon: <i className="ri-error-warning-fill"></i>
+            icon: <i className="ri-error-warning-line"></i>
           }
         ]);
       }
@@ -66,7 +92,7 @@ const ResetRequest: FC<ResetRequestProps> = () => {
         {
           message: "Не успяхме да изпратим имейл. Опитайте отново.",
           color: "danger",
-          icon: <i className="ri-error-warning-fill"></i>
+          icon: <i className="ri-error-warning-line"></i>
         }
       ]);
     } finally {
@@ -112,9 +138,29 @@ const ResetRequest: FC<ResetRequestProps> = () => {
                   className={`alert alert-${alert.color} flex items-center`}
                   role="alert"
                   key={idx}
+                  style={{
+                    width: "100%", // Ensure it takes full width
+                    boxSizing: "border-box", // Includes padding in width calculation
+                    height: "auto",
+                    marginBottom: "1rem", // Adds space between alert and form
+                    wordBreak: "break-word", // Wraps long messages properly
+                    padding: "0.75rem 1rem", // Adjust padding to match typical alert sizing
+                    minHeight: "auto", // Allows the alert to shrink to fit smaller content
+                    alignItems: "center"
+                  }}
                 >
-                  {alert.icon}
-                  <div>{alert.message}</div>
+                  <div
+                    style={{
+                      marginRight: "0.5rem",
+                      fontSize: "1.25rem",
+                      lineHeight: "1"
+                    }}
+                  >
+                    {alert.icon}
+                  </div>
+                  <div style={{ lineHeight: "1.2" }}>
+                    <b>{alert.message}</b>
+                  </div>
                 </div>
               ))}
               <div className="grid grid-cols-12 gap-y-4">

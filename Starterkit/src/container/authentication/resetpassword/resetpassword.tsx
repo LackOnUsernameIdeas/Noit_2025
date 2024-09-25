@@ -62,6 +62,20 @@ const Resetcover: FC<ResetcoverProps> = () => {
   }, [token, navigate]);
 
   const handlePasswordReset = async () => {
+    setIsSubmitting(true);
+
+    if (newPassword == "" || confirmPassword == "") {
+      setAlerts([
+        {
+          message: "Всички полета са задължителни!",
+          color: "danger",
+          icon: <i className="ri-error-warning-line"></i>
+        }
+      ]);
+      setIsSubmitting(false);
+      return;
+    }
+
     if (newPassword !== confirmPassword) {
       setAlerts([
         ...alerts,
@@ -71,10 +85,9 @@ const Resetcover: FC<ResetcoverProps> = () => {
           icon: <i className="ri-error-warning-line"></i>
         }
       ]);
+      setIsSubmitting(false);
       return;
     }
-
-    setIsSubmitting(true);
 
     try {
       const response = await fetch("http://localhost:5000/password-reset", {
@@ -160,9 +173,29 @@ const Resetcover: FC<ResetcoverProps> = () => {
                   className={`alert alert-${alert.color} flex items-center`}
                   role="alert"
                   key={idx}
+                  style={{
+                    width: "100%", // Ensure it takes full width
+                    boxSizing: "border-box", // Includes padding in width calculation
+                    height: "auto",
+                    marginBottom: "1rem", // Adds space between alert and form
+                    wordBreak: "break-word", // Wraps long messages properly
+                    padding: "0.75rem 1rem", // Adjust padding to match typical alert sizing
+                    minHeight: "auto", // Allows the alert to shrink to fit smaller content
+                    alignItems: "center"
+                  }}
                 >
-                  {alert.icon}
-                  <div>{alert.message}</div>
+                  <div
+                    style={{
+                      marginRight: "0.5rem",
+                      fontSize: "1.25rem",
+                      lineHeight: "1"
+                    }}
+                  >
+                    {alert.icon}
+                  </div>
+                  <div style={{ lineHeight: "1.2" }}>
+                    <b>{alert.message}</b>
+                  </div>
                 </div>
               ))}
               <div className="grid grid-cols-12 gap-y-4">
