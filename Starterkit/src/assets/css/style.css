@@ -19472,6 +19472,7 @@ input[type="color" i]::-webkit-color-swatch {
   @apply w-0;
 }
 
+/* Sign-In and Sign-Up */
 .empty-field{
   border: 2px solid #e6533c !important;
 }
