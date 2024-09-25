@@ -48,7 +48,7 @@ const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
   return isValid ? (
     children
   ) : (
-    <Navigate to="/authentication/signin/signincover" />
+    <Navigate to="/signin" />
   );
 };
 

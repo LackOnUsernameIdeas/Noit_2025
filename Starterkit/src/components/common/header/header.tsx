@@ -55,7 +55,7 @@ const Header: FC<HeaderProps> = ({ local_varaiable, ThemeChanger }: any) => {
     sessionStorage.removeItem("authToken");
 
     // Redirect to sign-in page
-    navigate(`${import.meta.env.BASE_URL}authentication/signin/signincover/`);
+    navigate(`${import.meta.env.BASE_URL}signin/`);
   };
 
   return (

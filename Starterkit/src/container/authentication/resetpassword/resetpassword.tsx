@@ -51,10 +51,10 @@ const Resetcover: FC<ResetcoverProps> = () => {
 
         const result = await response.json();
         console.log("result: ", result);
-        if (!result.valid) navigate("/authentication/signin/signincover");
+        if (!result.valid) navigate("/signin");
       } catch (error) {
         console.error("Error validating token:", error);
-        navigate("/authentication/signin/signincover"); // Redirect to an error page if the request fails
+        navigate("/signin"); // Redirect to an error page if the request fails
       }
     };
 
@@ -113,7 +113,7 @@ const Resetcover: FC<ResetcoverProps> = () => {
             icon: <i className="ri-check-line"></i>
           }
         ]);
-        navigate("/authentication/signin/signincover/");
+        navigate("/signin/");
       } else {
         setAlerts([
           ...alerts,
@@ -277,7 +277,7 @@ const Resetcover: FC<ResetcoverProps> = () => {
                   <Link
                     to={`${
                       import.meta.env.BASE_URL
-                    }authentication/signin/signincover/`}
+                    }signin/`}
                     className="text-primary"
                   >
                     Върни се към формата за влизане

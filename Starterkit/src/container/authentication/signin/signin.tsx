@@ -70,16 +70,16 @@ const Signincover: FC<SignincoverProps> = () => {
             // Optionally, clear token and redirect to login page
             localStorage.removeItem("authToken");
             sessionStorage.removeItem("authToken");
-            navigate("/authentication/signin/signincover");
+            navigate("/signin");
           }
         } catch (error) {
           console.error("Error validating token:", error);
           // Handle error (e.g., redirect to login page)
-          navigate("/authentication/signin/signincover");
+          navigate("/signin");
         }
       } else {
         // No token found, redirect to login page
-        navigate("/authentication/signin/signincover");
+        navigate("/signin");
       }
     };
 
@@ -259,7 +259,7 @@ const Signincover: FC<SignincoverProps> = () => {
                           <Link
                             to={`${
                               import.meta.env.BASE_URL
-                            }authentication/resetpassword/resetrequest`}
+                            }resetpassword`}
                             className="ltr:float-right rtl:float-left text-danger"
                           >
                             Забравена парола
@@ -325,7 +325,7 @@ const Signincover: FC<SignincoverProps> = () => {
                     <Link
                       to={`${
                         import.meta.env.BASE_URL
-                      }authentication/signup/signupcover`}
+                      }signup`}
                       className="text-primary"
                     >
                       Създайте такъв сега!

@@ -16,11 +16,11 @@ import PrivateRoute from "./pages/PrivateRoute.tsx";
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.Fragment>
     <BrowserRouter>
-      <React.Suspense fallback={<div>Loading...</div>}>
+      <React.Suspense fallback={<div>Зареждане...</div>}>
         <Routes>
           <Route
             path="/"
-            element={<Navigate to="/authentication/signin/signincover" />}
+            element={<Navigate to="/signin" />}
           />
           <Route
             path="/app"
@@ -38,23 +38,23 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
 
           <Route path="/" element={<Authenticationlayout />}>
             <Route
-              path="authentication/resetpassword/resetcover/:token"
+              path="resetpassword/resetcover/:token"
               element={<Resetcover />}
             />
             <Route
-              path="authentication/resetpassword/resetrequest"
+              path="resetpassword"
               element={<ResetRequest />}
             />
             <Route
-              path="authentication/signup/signupcover"
+              path="signup"
               element={<Signupcover />}
             />
             <Route
-              path="authentication/signin/signincover"
+              path="signin"
               element={<Signincover />}
             />
             <Route
-              path="authentication/twostepverification/twostepcover"
+              path="twostepverification"
               element={<Twostepcover />}
             />
           </Route>

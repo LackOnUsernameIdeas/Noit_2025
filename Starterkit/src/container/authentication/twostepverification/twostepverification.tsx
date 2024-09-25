@@ -108,7 +108,7 @@ const Twostepcover: FC<TwostepcoverProps> = () => {
 
       setTimeout(() => {
         navigate(
-          `${import.meta.env.BASE_URL}authentication/signin/signincover`
+          `${import.meta.env.BASE_URL}signin`
         );
       }, 1000);
     } catch (error: any) {

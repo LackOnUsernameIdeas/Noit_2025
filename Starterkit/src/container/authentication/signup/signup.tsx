@@ -166,7 +166,7 @@ const Signupcover: FC<SignupcoverProps> = () => {
       navigate(
         `${
           import.meta.env.BASE_URL
-        }authentication/twostepverification/twostepcover`,
+        }twostepverification`,
         {
           state: { email: formData.email }
         }
@@ -391,7 +391,7 @@ const Signupcover: FC<SignupcoverProps> = () => {
                   <Link
                     to={`${
                       import.meta.env.BASE_URL
-                    }authentication/signin/signincover/`}
+                    }signin/`}
                     className="text-primary"
                   >
                     Влезнете в профила си!

@@ -198,7 +198,7 @@ const ResetRequest: FC<ResetRequestProps> = () => {
                   <Link
                     to={`${
                       import.meta.env.BASE_URL
-                    }authentication/signin/signincover/`}
+                    }signin/`}
                     className="text-primary"
                   >
                     Върни се към формата за влизане
