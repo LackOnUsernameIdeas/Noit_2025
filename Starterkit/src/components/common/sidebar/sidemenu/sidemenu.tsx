@@ -9,7 +9,7 @@ export const MENUITEMS = [
     Name: "",
     active: false,
     selected: false,
-    title: "Табла за управление",
+    title: "Начало",
     badge: "",
     badgetxt: "12",
     class:
