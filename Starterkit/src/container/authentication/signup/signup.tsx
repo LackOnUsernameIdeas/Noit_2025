@@ -246,7 +246,9 @@ const Signupcover: FC<SignupcoverProps> = () => {
                     >
                       {alert.icon}
                     </div>
-                    <div style={{ lineHeight: "1.2" }}>{alert.message}</div>
+                    <div style={{ lineHeight: "1.2" }}>
+                      <b>{alert.message}</b>
+                    </div>
                   </div>
                 ))}
 
