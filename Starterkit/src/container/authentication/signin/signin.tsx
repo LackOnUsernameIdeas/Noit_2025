@@ -22,9 +22,9 @@ const Signincover: FC<SignincoverProps> = () => {
     email: "",
     password: ""
   });
-  const [emptyFields, setEmptyFields] = useState({ 
-    email: false, 
-    password: false 
+  const [emptyFields, setEmptyFields] = useState({
+    email: false,
+    password: false
   });
 
   const [passwordShow, setpasswordShow] = useState(false);
@@ -95,7 +95,7 @@ const Signincover: FC<SignincoverProps> = () => {
 
     setEmptyFields((prevState) => ({
       ...prevState,
-      [id]: false, // Reset field error when typing
+      [id]: false // Reset field error when typing
     }));
   };
 
@@ -110,11 +110,11 @@ const Signincover: FC<SignincoverProps> = () => {
     const emptyPassword = !formData.password;
 
     if (emptyEmail || emptyPassword) {
-      setEmptyFields({ 
-        email: emptyEmail, 
-        password: emptyPassword,
+      setEmptyFields({
+        email: emptyEmail,
+        password: emptyPassword
       });
-      
+
       setAlerts([
         {
           message: "Всички полета са задължителни!",
@@ -162,7 +162,7 @@ const Signincover: FC<SignincoverProps> = () => {
         {
           message: error.message,
           color: "danger",
-          icon: <i className="ri-error-warning-fill"></i>
+          icon: <i className="ri-error-warning-line"></i>
         }
       ]);
     }
@@ -200,100 +200,125 @@ const Signincover: FC<SignincoverProps> = () => {
                 <p className="mb-4 text-[#8c9097] dark:text-white/50 opacity-[0.7] font-normal">
                   Попълнете Вашите имейл и парола, за да влезете в профила си!
                 </p>
-                {alerts.map((alert, idx) => (
-                  <div
-                    className={`alert alert-${alert.color} flex items-center`}
-                    role="alert"
-                    key={idx}
-                  >
-                    {alert.icon}
-                    <div>{alert.message}</div>
-                  </div>
-                ))}
-                <form onSubmit={handleSubmit}>
-                  <div className="grid grid-cols-12 gap-y-4">
-                    <div className="xl:col-span-12 col-span-12 mt-0">
-                      <label
-                        htmlFor="signin-email"
-                        className="form-label text-default"
+                <div className="form-wrapper max-w-lg mx-auto">
+                  {alerts.map((alert, idx) => (
+                    <div
+                      className={`alert alert-${alert.color} flex items-center`}
+                      role="alert"
+                      key={idx}
+                      style={{
+                        maxWidth: "100%", // Ensures it adapts to the form width
+                        height: "auto",
+                        marginBottom: "1rem", // Adds space between alert and form
+                        wordBreak: "break-word", // Wraps long messages properly
+                        padding: "0.75rem 1rem", // Adjust padding to match typical alert sizing
+                        minHeight: "auto", // Allows the alert to shrink to fit smaller content
+                        alignItems: "center"
+                      }}
+                    >
+                      <div
+                        style={{
+                          marginRight: "0.5rem",
+                          fontSize: "1.25rem",
+                          lineHeight: "1"
+                        }}
                       >
-                        Имейл
-                      </label>
-                      <input
-                        type="email"
-                        className={`form-control form-control-lg w-full !rounded-md ${emptyFields.email ? 'empty-field' : ''}`}
-                        id="email"
-                        placeholder="Въведете своя имейл"
-                        value={formData.email}
-                        onChange={handleInputChange}
-                      />
+                        {alert.icon}
+                      </div>
+                      <div style={{ lineHeight: "1.2" }}>
+                        <b>{alert.message}</b>
+                      </div>
                     </div>
-                    <div className="xl:col-span-12 col-span-12 mb-4">
-                      <label
-                        htmlFor="signin-password"
-                        className="form-label text-default block"
-                      >
-                        Парола
-                        <Link
-                          to={`${
-                            import.meta.env.BASE_URL
-                          }authentication/resetpassword/resetrequest`}
-                          className="ltr:float-right rtl:float-left text-danger"
+                  ))}
+                  <form onSubmit={handleSubmit}>
+                    <div className="grid grid-cols-12 gap-y-4">
+                      <div className="xl:col-span-12 col-span-12 mt-0">
+                        <label
+                          htmlFor="signin-email"
+                          className="form-label text-default"
                         >
-                          Забравена парола
-                        </Link>
-                      </label>
-                      <div className="input-group">
+                          Имейл
+                        </label>
                         <input
-                          type={passwordShow ? "text" : "password"}
-                          className={`form-control form-control-lg !rounded-e-none ${emptyFields.password ? 'empty-field' : ''}`}
-                          id="password"
-                          placeholder="Въведете своята парола"
-                          value={formData.password}
+                          type="email"
+                          className={`form-control form-control-lg w-full !rounded-md ${
+                            emptyFields.email ? "empty-field" : ""
+                          }`}
+                          id="email"
+                          placeholder="Въведете своя имейл"
+                          value={formData.email}
                           onChange={handleInputChange}
                         />
-                        <button
-                          aria-label="button"
-                          type="button"
-                          className="ti-btn ti-btn-light !rounded-s-none !mb-0"
-                          onClick={() => setpasswordShow(!passwordShow)}
-                          id="button-addon2"
-                        >
-                          <i
-                            className={`${
-                              passwordShow ? "ri-eye-line" : "ri-eye-off-line"
-                            } align-middle`}
-                          ></i>
-                        </button>
                       </div>
-                      <div className="mt-2">
-                        <div className="form-check !ps-0">
-                          <input
-                            className="form-check-input"
-                            type="checkbox"
-                            id="rememberMe"
-                            checked={rememberMe}
-                            onChange={handleCheckboxChange}
-                          />
-                          <label
-                            className="form-check-label text-[#8c9097] dark:text-white/50 font-normal"
-                            htmlFor="rememberMe"
+                      <div className="xl:col-span-12 col-span-12 mb-4">
+                        <label
+                          htmlFor="signin-password"
+                          className="form-label text-default block"
+                        >
+                          Парола
+                          <Link
+                            to={`${
+                              import.meta.env.BASE_URL
+                            }authentication/resetpassword/resetrequest`}
+                            className="ltr:float-right rtl:float-left text-danger"
                           >
-                            Запомни паролата ми
-                          </label>
+                            Забравена парола
+                          </Link>
+                        </label>
+                        <div className="input-group">
+                          <input
+                            type={passwordShow ? "text" : "password"}
+                            className={`form-control form-control-lg !rounded-e-none ${
+                              emptyFields.password ? "empty-field" : ""
+                            }`}
+                            id="password"
+                            placeholder="Въведете своята парола"
+                            value={formData.password}
+                            onChange={handleInputChange}
+                          />
+                          <button
+                            aria-label="button"
+                            type="button"
+                            className="ti-btn ti-btn-light !rounded-s-none !mb-0"
+                            onClick={() => setpasswordShow(!passwordShow)}
+                            id="button-addon2"
+                          >
+                            <i
+                              className={`${
+                                passwordShow ? "ri-eye-line" : "ri-eye-off-line"
+                              } align-middle`}
+                            ></i>
+                          </button>
+                        </div>
+                        <div className="mt-2">
+                          <div className="form-check !ps-0">
+                            <input
+                              className="form-check-input"
+                              type="checkbox"
+                              id="rememberMe"
+                              checked={rememberMe}
+                              onChange={handleCheckboxChange}
+                            />
+                            <label
+                              className="form-check-label text-[#8c9097] dark:text-white/50 font-normal"
+                              htmlFor="rememberMe"
+                            >
+                              Запомни паролата ми
+                            </label>
+                          </div>
                         </div>
                       </div>
+                      <div className="xl:col-span-12 col-span-12 grid mt-2">
+                        <button
+                          type="submit"
+                          className="ti-btn ti-btn-lg bg-primary text-white !font-medium dark:border-defaultborder/10"
+                        >
+                          Влезни
+                        </button>
+                      </div>
                     </div>
-                    <div className="xl:col-span-12 col-span-12 grid mt-2">
-                      <button
-                        type="submit"
-                        className="ti-btn ti-btn-lg bg-primary text-white !font-medium dark:border-defaultborder/10"
-                      >
-                        Влезни
-                      </button>
-                    </div>
-                  </div>
-                </form>
+                  </form>
+                </div>
                 <div className="text-center">
                   <p className="text-[0.75rem] text-[#8c9097] dark:text-white/50 mt-4">
                     Нямате профил?{" "}
