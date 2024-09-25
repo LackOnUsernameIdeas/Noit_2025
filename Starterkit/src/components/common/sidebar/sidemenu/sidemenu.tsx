@@ -9,7 +9,7 @@ export const MENUITEMS = [
     Name: "",
     active: false,
     selected: false,
-    title: "Dashboards",
+    title: "Табла за управление",
     badge: "",
     badgetxt: "12",
     class:
@@ -22,7 +22,7 @@ export const MENUITEMS = [
     Name: "",
     active: false,
     selected: false,
-    title: "Test",
+    title: "Тест",
     badge: "",
     badgetxt: "12",
     class:
@@ -34,7 +34,7 @@ export const MENUITEMS = [
   },
 
   {
-    title: "Nested Menu",
+    title: "Падащо меню",
     icon: <i className="bx bx-layer side-menu__icon"></i>,
     type: "sub",
     selected: false,
@@ -42,27 +42,27 @@ export const MENUITEMS = [
     children: [
       {
         path: "#",
-        title: "Nested-1",
+        title: "Подменю 1",
         type: "empty",
         active: false,
         selected: false
       },
       {
-        title: "Nested-2",
+        title: "Подменю 2",
         type: "sub",
         selected: false,
         active: false,
         children: [
           {
             path: "#",
-            title: "Nested-2.1",
+            title: "Подменю 2.1",
             type: "empty",
             active: false,
             selected: false
           },
           {
             path: "#",
-            title: "Nested-2.2",
+            title: "Подменю 2.2",
             type: "empty",
             active: false,
             selected: false

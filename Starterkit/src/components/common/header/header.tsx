@@ -125,7 +125,7 @@ const Header: FC<HeaderProps> = ({ local_varaiable, ThemeChanger }: any) => {
                   onClick={handleLogout}
                 >
                   <i className="ti ti-logout text-[1.125rem] me-2 opacity-[0.7]"></i>
-                  Log Out
+                  Излизане
                 </button>
               </div>
               <div className="header-element md:px-[0.48rem]">
