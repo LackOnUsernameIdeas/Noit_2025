@@ -19477,4 +19477,9 @@ input[type="color" i]::-webkit-color-swatch {
   border: 2px solid #e6533c !important;
 }
 
+/*EMAILS*/
+.email-center{
+  text-align: center;
+}
+
 /*# sourceMappingURL=style.css.map */

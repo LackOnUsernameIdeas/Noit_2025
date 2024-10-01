@@ -38,11 +38,11 @@ const Twostepcover: FC<TwostepcoverProps> = () => {
   const { email } = location.state as { email: string };
 
   useEffect(() => {
-    // Check if user is already logged in
+    // Проверява дали потребителя е вече в профила си
     const token =
       localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
     if (token) {
-      // Redirect to the app if token exists
+      // Препраща към приложението, ако съществува токен
       navigate(`${import.meta.env.BASE_URL}app/home/`);
     }
   }, [navigate]);
@@ -54,7 +54,7 @@ const Twostepcover: FC<TwostepcoverProps> = () => {
       }, 1000);
       return () => clearTimeout(timer);
     } else {
-      setLoading(false); // Stop loading when cooldown is over
+      setLoading(false); // Спира зареждането когато приключи времето за изчакване
     }
   }, [resendCooldown]);
 
@@ -123,9 +123,9 @@ const Twostepcover: FC<TwostepcoverProps> = () => {
   };
 
   const handleResendCode = async () => {
-    if (resendCooldown > 0) return; // Prevent resend if cooldown is active
+    if (resendCooldown > 0) return; // Не позволява повторно изпращане, ако времето за изчакване тече
 
-    setLoading(true); // Set loading when the code is being resent
+    setLoading(true); // Докато се изпраща кода се показва колело за зареждане
     console.log(email);
 
     try {
@@ -140,7 +140,7 @@ const Twostepcover: FC<TwostepcoverProps> = () => {
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(
-          errorData.error || "Failed to resend verification code."
+          errorData.error || "Не успяхме да изпратим кода отново!"
         );
       }
 
@@ -153,8 +153,7 @@ const Twostepcover: FC<TwostepcoverProps> = () => {
         }
       ]);
 
-      // Start cooldown
-      setResendCooldown(60); // 60 seconds cooldown
+      setResendCooldown(60); // Изчаква 60 секунди
     } catch (error: any) {
       setAlerts([
         {
@@ -164,7 +163,7 @@ const Twostepcover: FC<TwostepcoverProps> = () => {
         }
       ]);
     } finally {
-      setLoading(false); // Hide loading once the operation is complete
+      setLoading(false); // Спира зареждането
     }
   };
 

@@ -49,36 +49,39 @@ app.post("/signup", (req, res) => {
 
   db.checkEmailExists(email, (err, results) => {
     if (err) return res.status(500).json({ error: "Database query error" });
-
+    
     if (results.length > 0) {
-      // Email already exists
       return res
         .status(400)
         .json({ error: "Профил с този имейл вече съществува." });
     }
 
-    // Generate verification code
+    // Генерира код за потвърждение
     const verificationCode = crypto.randomInt(100000, 999999).toString();
 
-    // Store the code temporarily
+    // Съхранява временно кода
     verificationCodes[email] = {
       code: verificationCode,
       firstName,
       lastName,
       password, // Store the password temporarily
-      expiresAt: Date.now() + 15 * 60 * 1000 // 15 minutes expiry
+      expiresAt: Date.now() + 15 * 60 * 1000 // Задава 15 минути валидност
     };
 
-    // Send verification code via email
+    // Изпраща код за потвърждение по имейл
     const mailOptions = {
       from: process.env.EMAIL_USER,
       to: email,
-      subject: "Email Verification Code",
-      html: `<p>Your verification code is <strong>${verificationCode}</strong>.</p>`
+      subject: "Шестцифрен код за потвърждение от ИМЕ_НА_ПРОЕКТА",
+      html: `
+      <div style="text-align: center;">
+        <h2><span style="color: rgb(227, 133, 248)">🕮</span>Благодарим Ви за регистрацията в ИМЕ_НА_ПРОЕКТА<span style="color: rgb(227, 133, 248)">&#128366</span></h2>
+        <p>Вашият шестцифрен код е <strong>${verificationCode}</strong>.</p>
+      </div>`,
     };
 
     transporter.sendMail(mailOptions, (error, info) => {
-      if (error) return res.status(500).json({ error: "Failed to send email" });
+      if (error) return res.status(500).json({ error: "Не успяхме да изпратим имейл! :(" });
       res.json({ message: "Кодът за потвърждение е изпратен на вашия имейл!" });
     });
   });
@@ -88,27 +91,27 @@ app.post("/signup", (req, res) => {
 app.post("/resend", (req, res) => {
   const { email } = req.body;
 
-  // Generate verification code
+  // Генерира код за потвърждение
   const verificationCode = crypto.randomInt(100000, 999999).toString();
 
-  // Store the code temporarily
+  // Съхранява кода временно
   verificationCodes[email] = {
     ...verificationCodes[email],
     code: verificationCode,
-    expiresAt: Date.now() + 15 * 60 * 1000 // 15 minutes expiry
+    expiresAt: Date.now() + 15 * 60 * 1000, // Задава 15 минути валидност
   };
 
-  // Resend verification code via email
+  // Изпраща нов код за потвърждение по имейл
   const mailOptions = {
     from: process.env.EMAIL_USER,
     to: email,
-    subject: "Email Verification Code",
-    html: `<p>Your verification code is <strong>${verificationCode}</strong>.</p>`
+    subject: "Нов шестцифрен код за потвърждение от ИМЕ_НА_ПРОЕКТА",
+    html: `<p class = "email-center">Новият Ви код за потвърждение е <strong>${verificationCode}</strong>.</p>`,
   };
 
   console.log(verificationCodes[email]);
   transporter.sendMail(mailOptions, (error, info) => {
-    if (error) return res.status(500).json({ error: "Failed to send email" });
+    if (error) return res.status(500).json({ error: "Не успяхме да изпратим имейл! :(" });
     res.json({ message: "Кодът за потвърждение е изпратен на вашия имейл!" });
   });
 });
@@ -145,7 +148,7 @@ app.post("/verify-email", (req, res) => {
     (err, result) => {
       if (err) return res.status(400).json({ error: err.message });
 
-      // Remove the code after successful registration
+      // Изтрива кода след регистрация
       delete verificationCodes[email];
       res.json({ message: "Успешно регистриран профил!" });
     }
@@ -199,15 +202,15 @@ app.post("/password-reset-request", (req, res) => {
     const mailOptions = {
       from: process.env.EMAIL_USER,
       to: email,
-      subject: "Password Reset Request",
-      html: `<p>Click <a href="${resetLink}">here</a> to reset your password.</p>`
+      subject: "Промяна на паролата за ИМЕ_НА_ПРОЕКТА",
+      html: `<p>Натиснете <a href="${resetLink}">тук</a>, за да промените паролата си.</p>`
     };
 
     transporter.sendMail(mailOptions, (error, info) => {
-      if (error) return res.status(500).json({ error: "Failed to send email" });
+      if (error) return res.status(500).json({ error: "Не успяхме да изпратим имейл :(" });
       res.json({
         message:
-          "Заявката за актуализиране на паролата е изпратена на вашия имейл!"
+          "Заявката за промяна на паролата е изпратена на вашия имейл!"
       });
     });
   });
