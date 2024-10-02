@@ -74,9 +74,13 @@ app.post("/signup", (req, res) => {
       to: email,
       subject: "Шестцифрен код за потвърждение от ИМЕ_НА_ПРОЕКТА",
       html: `
-      <div style="text-align: center;">
-        <h2><span style="color: rgb(227, 133, 248)">🕮</span>Благодарим Ви за регистрацията в ИМЕ_НА_ПРОЕКТА<span style="color: rgb(227, 133, 248)">&#128366</span></h2>
-        <p>Вашият шестцифрен код е <strong>${verificationCode}</strong>.</p>
+      <div style="text-align: center; background-color: rgba(244, 211, 139, 0.5); margin: 2% 3%; padding: 3% 1%; border: 4px dotted rgb(178, 50, 0); border-radius: 20px">
+        <h2>Благодарим Ви за регистрацията в <span style="color: rgb(178, 50, 0); font-weight: 600;">🕮</span>ИМЕ_НА_ПРОЕКТА<span style="color: rgb(178, 50, 0); font-weight: 600;">🕮</span></h2>
+          <hr style="border: 0.5px solid rgb(178, 50, 0); width: 18%; margin-top: 6%; margin-bottom: 4%"></hr>
+        <p>Вашият шестцифрен код е <strong style="font-size: 20px; color: rgb(178, 50, 0)">${verificationCode}</strong>.</p>
+      </div>
+      <div>
+        <p style="border-radius: 5px; background-color: rgba(178, 50, 0, 0.2); text-align: center; font-size: 13px; margin: 5% 25% 0% 25%">Не сте поискали код? Игнорирайте този имейл.</p>
       </div>`,
     };
 
@@ -106,7 +110,13 @@ app.post("/resend", (req, res) => {
     from: process.env.EMAIL_USER,
     to: email,
     subject: "Нов шестцифрен код за потвърждение от ИМЕ_НА_ПРОЕКТА",
-    html: `<p class = "email-center">Новият Ви код за потвърждение е <strong>${verificationCode}</strong>.</p>`,
+    html: `
+      <div style="text-align: center; background-color: rgba(244, 211, 139, 0.5); margin: 2% 3%; padding: 3% 1%; border: 4px dotted rgb(178, 50, 0); border-radius: 20px">
+        <p>Вашият шестцифрен код е <strong style="font-size: 20px; color: rgb(178, 50, 0)">${verificationCode}</strong>.</p>
+      </div>
+      <div>
+        <p style="border-radius: 5px; background-color: rgba(178, 50, 0, 0.2); text-align: center; font-size: 13px; margin: 5% 25% 0% 25%">Не сте поискали код? Игнорирайте този имейл.</p>
+      </div>`,
   };
 
   console.log(verificationCodes[email]);
