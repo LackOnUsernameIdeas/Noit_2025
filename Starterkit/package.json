@@ -16,7 +16,7 @@
     "start-vite": "node -r dotenv/config -e \"const { exec } = require('child_process'); exec('vite');\"",
     "open-browser": "node -r dotenv/config -e \"const { spawn } = require('child_process'); spawn(process.env.BROWSER_PATH, ['http://localhost:' + process.env.VITE_PORT], { detached: true, stdio: 'ignore' });\"",
     "launch": "npm-run-all --parallel start-mysql start-api start-vite open-browser",
-    "run-project": "npm-run-all --parallel start-mysql start-api start-vite"
+    "execute": "npm-run-all --parallel start-mysql start-api start-vite"
   },
   "dependencies": {
     "@emotion/styled": "^11.11.0",
