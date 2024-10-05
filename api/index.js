@@ -49,7 +49,7 @@ app.post("/signup", (req, res) => {
 
   db.checkEmailExists(email, (err, results) => {
     if (err) return res.status(500).json({ error: "Database query error" });
-    
+
     if (results.length > 0) {
       return res
         .status(400)
@@ -81,11 +81,14 @@ app.post("/signup", (req, res) => {
       </div>
       <div>
         <p style="border-radius: 5px; background-color: rgba(178, 50, 0, 0.2); text-align: center; font-size: 13px; margin: 5% 25% 0% 25%">Не сте поискали код? Игнорирайте този имейл.</p>
-      </div>`,
+      </div>`
     };
 
     transporter.sendMail(mailOptions, (error, info) => {
-      if (error) return res.status(500).json({ error: "Не успяхме да изпратим имейл! :(" });
+      if (error)
+        return res
+          .status(500)
+          .json({ error: "Не успяхме да изпратим имейл! :(" });
       res.json({ message: "Кодът за потвърждение е изпратен на вашия имейл!" });
     });
   });
@@ -102,7 +105,7 @@ app.post("/resend", (req, res) => {
   verificationCodes[email] = {
     ...verificationCodes[email],
     code: verificationCode,
-    expiresAt: Date.now() + 15 * 60 * 1000, // Задава 15 минути валидност
+    expiresAt: Date.now() + 15 * 60 * 1000 // Задава 15 минути валидност
   };
 
   // Изпраща нов код за потвърждение по имейл
@@ -116,12 +119,15 @@ app.post("/resend", (req, res) => {
       </div>
       <div>
         <p style="border-radius: 5px; background-color: rgba(178, 50, 0, 0.2); text-align: center; font-size: 13px; margin: 5% 25% 0% 25%">Не сте поискали код? Игнорирайте този имейл.</p>
-      </div>`,
+      </div>`
   };
 
   console.log(verificationCodes[email]);
   transporter.sendMail(mailOptions, (error, info) => {
-    if (error) return res.status(500).json({ error: "Не успяхме да изпратим имейл! :(" });
+    if (error)
+      return res
+        .status(500)
+        .json({ error: "Не успяхме да изпратим имейл! :(" });
     res.json({ message: "Кодът за потвърждение е изпратен на вашия имейл!" });
   });
 });
@@ -217,10 +223,12 @@ app.post("/password-reset-request", (req, res) => {
     };
 
     transporter.sendMail(mailOptions, (error, info) => {
-      if (error) return res.status(500).json({ error: "Не успяхме да изпратим имейл :(" });
+      if (error)
+        return res
+          .status(500)
+          .json({ error: "Не успяхме да изпратим имейл :(" });
       res.json({
-        message:
-          "Заявката за промяна на паролата е изпратена на вашия имейл!"
+        message: "Заявката за промяна на паролата е изпратена на вашия имейл!"
       });
     });
   });
@@ -282,6 +290,7 @@ app.get("/user-data", (req, res) => {
   });
 });
 
+console.log("maikati");
 // Start server
 app.listen(5000, () => {
   console.log("Server started on http://localhost:5000");
