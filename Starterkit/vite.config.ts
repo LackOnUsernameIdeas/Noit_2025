@@ -8,6 +8,6 @@ export default defineConfig({
     chunkSizeWarningLimit: 50000
   },
   server: {
-    port: 5174
+    port: parseInt(process.env.VITE_PORT)
   }
 });
