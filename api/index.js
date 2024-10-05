@@ -290,7 +290,6 @@ app.get("/user-data", (req, res) => {
   });
 });
 
-console.log("maikati");
 // Start server
 app.listen(5000, () => {
   console.log("Server started on http://localhost:5000");
