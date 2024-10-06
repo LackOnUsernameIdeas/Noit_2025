@@ -22,6 +22,18 @@ const Crm: FC<CrmProps> = () => {
 
   const userdata: any = [];
 
+  const [userData, setUserData] = useState<{
+    id: number;
+    first_name: string;
+    last_name: string;
+    email: string;
+  }>({
+    id: 0,
+    first_name: "",
+    last_name: "",
+    email: ""
+  });
+
   const myfunction = (idx: any) => {
     let Data;
     for (Data of Dealsstatistics) {
@@ -59,6 +71,7 @@ const Crm: FC<CrmProps> = () => {
           }
 
           const data = await response.json();
+          setUserData(data);
           console.log("User Data:", data); // Log user data to the console
         } catch (error) {
           console.error("Error fetching user data:", error);
@@ -72,7 +85,7 @@ const Crm: FC<CrmProps> = () => {
       <div className="md:flex block items-center justify-between my-[1.5rem] page-header-breadcrumb">
         <div>
           <p className="font-semibold text-[1.125rem] text-defaulttextcolor dark:text-defaulttextcolor/70 !mb-0 ">
-            Добре дошъл, Json Taylor !
+            Добре дошъл, {userData.first_name} {userData.last_name}!
           </p>
           <p className="font-normal text-[#8c9097] dark:text-white/50 text-[0.813rem]">
             Track your sales activity, leads and deals here.
