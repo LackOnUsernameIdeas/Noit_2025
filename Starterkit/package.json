@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "dev": "vite",
     "launch": "npm-run-all --parallel start-mysql start-api start-vite open-browser",
     "execute": "npm-run-all --parallel start-mysql start-api start-vite",
     "build": "tsc && vite build",
