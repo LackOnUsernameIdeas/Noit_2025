@@ -21,6 +21,7 @@ const Test: FC<Test> = () => {
       ? "Предпочитам филмите да се задълбочават и да имат специфични истории и/или терминологии, специфично съществуващи във филма."
       : "Нямам предпочитания за дълбочината на филма.";
 
+  const openAIKey = import.meta.env.VITE_OPENAI_API_KEY;
   const generateMovieRecommendations = async () => {
     try {
       const response = await fetch(
@@ -29,10 +30,10 @@ const Test: FC<Test> = () => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${"key"}`
+            Authorization: `Bearer ${openAIKey}`
           },
           body: JSON.stringify({
-            model: "gpt-4-0125-preview", // Ensure correct model
+            model: "gpt-4o-2024-08-06",
             messages: [
               {
                 role: "system",
@@ -41,24 +42,19 @@ const Test: FC<Test> = () => {
               {
                 role: "user",
                 content: `Препоръчай ми 10 филма за гледане, които да са съобразени с моите вкусове и предпочитания, а именно:
-              Любими жанрове: ${genres}. 
-              Емоционално състояние в този момент: ${mood}.  
-              Разполагаемо свободно време за гледане: ${timeAvailable}.  
-              Любими актьори: ${actors}.  
-              Любими филмови режисьори: ${directors}. 
-              Теми, които ме интересуват: ${interests}. 
-              Филмите могат да бъдат от следните страни: ${countries}.  
-              Темпото (бързината) на филмите предпочитам да бъде: ${pacing}.  
+              Любими жанрове: ${genres}.
+              Емоционално състояние в този момент: ${mood}.
+              Разполагаемо свободно време за гледане: ${timeAvailable}.
+              Любими актьори: ${actors}.
+              Любими филмови режисьори: ${directors}.
+              Теми, които ме интересуват: ${interests}.
+              Филмите могат да бъдат от следните страни: ${countries}.
+              Темпото (бързината) на филмите предпочитам да бъде: ${pacing}.
               ${depthPreference}
-              Целевата група е: Без възрастови ограничения.
+              Целевата група е: ${targetGroup}.
               Дай информация за всеки отделен филм по отделно защо той е подходящ за мен. Форматирай своя response в JSON формат по този начин:
               {
-                "MovieTitle1": {
-                  "bgName": "Официално име на филма на български",
-                  "description": "Описание на филма",
-                  "reason": "Защо този филм е подходящ за мен?"
-                },
-                "MovieTitle2": {
+                "Официално име на филма на английски": {
                   "bgName": "Официално име на филма на български",
                   "description": "Описание на филма",
                   "reason": "Защо този филм е подходящ за мен?"
@@ -71,16 +67,52 @@ const Test: FC<Test> = () => {
         }
       );
 
-      const recommendations = await response.json(); // Get the JSON response
-      console.log(recommendations);
+      //--EXAMPLE--
+      // Препоръчай ми 10 филма за гледане, които да са съобразени с моите вкусове и предпочитания, а именно:
+      // Любими жанрове: трилър, хорър.
+      // Емоционално състояние в този момент: нормално.
+      // Разполагаемо свободно време за гледане: цяла вечер.
+      // Любими актьори: Мили Боби Браун.
+      // Любими филмови режисьори: нямам предпочитания.
+      // Теми, които ме интересуват: нямам предпочитания.
+      // Филмите могат да бъдат от следните страни: САЩ.
+      // Темпото (бързината) на филмите предпочитам да бъде: нямам предпочитания.
+      // Предпочитам филмите да се задълбочават и да имат специфични истории и/или терминологии, специфично съществуващи във филма.
+      // Целевата група е: Без възрастови ограничения.
+      // Дай информация за всеки отделен филм по отделно защо той е подходящ за мен. Форматирай своя response в JSON формат по този начин:
+      // {
+      //   "Официално име на филма на английски": {
+      //     "bgName": "Официално име на филма на български",
+      //     "description": "Описание на филма",
+      //     "reason": "Защо този филм е подходящ за мен?"
+      //   },
+      //   // ...additional movies
+      // }
+      //--EXAMPLE--
+
+      const responseData = await response.json(); // Get the JSON response
+      const responseJson = responseData.choices[0].message.content;
+      const unescapedData = responseJson
+        .replace(/^```json([\s\S]*?)```$/, "$1")
+        .replace(/^```JSON([\s\S]*?)```$/, "$1")
+        .replace(/^```([\s\S]*?)```$/, "$1")
+        .replace(/^'|'$/g, "") // Remove single quotes at the beginning and end
+        .trim();
+      console.log("unescapedData: ", unescapedData);
+      const escapedData = decodeURIComponent(unescapedData);
+      console.log("escapedData: ", escapedData);
+      const recommendations = JSON.parse(escapedData);
+      console.log("recommendations: ", recommendations);
 
       for (const movieTitle in recommendations) {
         const movieName = movieTitle; // Use the movie title as the search term
-        console.log(`Fetching IMDb ID for: ${movieName}`);
 
         // Step 3: Fetch IMDb ID via Google Custom Search API
+
+        // 27427e59e17b74763, AIzaSyArE48NFh1befjjDxpSrJ0eBgQh_OmQ7RA
+        // e59ceff412ebc4313, AIzaSyDqUez1TEmLSgZAvIaMkWfsq9rSm0kDjIw
         const imdbResponse = await fetch(
-          `https://customsearch.googleapis.com/customsearch/v1?key=YOUR_GOOGLE_API_KEY&cx=e59ceff412ebc4313&q=${encodeURIComponent(
+          `https://customsearch.googleapis.com/customsearch/v1?key=AIzaSyArE48NFh1befjjDxpSrJ0eBgQh_OmQ7RA&cx=27427e59e17b74763&q=${encodeURIComponent(
             movieName
           )}`
         );
@@ -96,14 +128,18 @@ const Test: FC<Test> = () => {
             const imdbUrl = imdbLink.link;
             const imdbId = imdbUrl.match(/title\/(tt\d+)\//)?.[1]; // Extract IMDb ID from the URL
             if (imdbId) {
-              console.log(`IMDb ID for ${movieName}: ${imdbId}`);
-
               const omdbResponse = await fetch(
                 `http://www.omdbapi.com/?apikey=89cbf31c&i=${imdbId}`
               );
               const omdbData = await omdbResponse.json();
 
-              console.log(`OMDb data for ${movieName}: ${omdbData}`);
+              console.log(
+                `OMDb data for ${movieName}: ${JSON.stringify(
+                  omdbData,
+                  null,
+                  2
+                )}`
+              );
             } else {
               console.log(`IMDb ID not found for ${movieName}`);
             }
